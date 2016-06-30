@@ -1,1 +1,1 @@
-include ':todoapp'
+include ':todoapp', ':androidapp'
