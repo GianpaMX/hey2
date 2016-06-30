@@ -8,6 +8,10 @@ public class Task {
     public String title;
     public String description;
 
+    public Task() {
+        this(null, null, null);
+    }
+
     public Task(String title, String description) {
         this(null, title, description);
     }

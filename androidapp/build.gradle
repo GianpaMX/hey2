@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -20,11 +21,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    final SUPPORT_LIBRARY_VERSION = '23.4.0'
+    final ROBOLECTRIC_VERSION = '3.1'
+    final DAGGER_VERSION = '2.2'
+
+    apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    compile "com.google.dagger:dagger:$DAGGER_VERSION"
+    testApt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
     compile project(':todoapp')
-    compile 'com.android.support:appcompat-v7:23.4.0'
+
+    compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
 
     testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
+    testCompile("org.robolectric:shadows-support-v4:$ROBOLECTRIC_VERSION") {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+    testCompile "org.mockito:mockito-core:1.10.19"
+    testCompile "com.github.fabioCollini:DaggerMock:0.6.1"
 }

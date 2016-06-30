@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Hey2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_edit_task_fragment_title_hint">Title</string>
+    <string name="add_edit_task_fragment_description_hint">Description</string>
+    <string name="add_edit_task_activity_menu_save_text">Save</string>
 </resources>

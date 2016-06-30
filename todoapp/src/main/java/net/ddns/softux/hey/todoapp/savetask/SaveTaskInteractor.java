@@ -11,6 +11,11 @@ public class SaveTaskInteractor implements SaveTaskUseCase {
 
     @Override
     public void save(Task task) {
-        saveTaskGateway.save(task, savedTask -> onSaveTaskListener.onSavedTask(savedTask));
+        saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
+            @Override
+            public void onSuccess(Task savedTask) {
+                onSaveTaskListener.onSavedTask(savedTask);
+            }
+        });
     }
 }
