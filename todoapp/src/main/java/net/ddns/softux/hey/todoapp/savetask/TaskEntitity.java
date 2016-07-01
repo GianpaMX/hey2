@@ -9,6 +9,10 @@ public class TaskEntitity {
     public String title;
     public String description;
 
+    public TaskEntitity() {
+
+    }
+
     public TaskEntitity(String key, String title, String description) {
         this.key = key;
         this.title = title;

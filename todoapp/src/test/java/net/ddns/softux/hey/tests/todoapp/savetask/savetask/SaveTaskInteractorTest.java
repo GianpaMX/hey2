@@ -39,7 +39,7 @@ public class SaveTaskInteractorTest {
 
         ArgumentCaptor<SaveTaskGatewayCallback> saveTaskGatewayCallbackArgumentCaptor = ArgumentCaptor.forClass(SaveTaskGatewayCallback.class);
         verify(mockSaveTaskGateway).save(any(Task.class), saveTaskGatewayCallbackArgumentCaptor.capture());
-        saveTaskGatewayCallbackArgumentCaptor.getValue().onSuccess(mock(TaskEntitity.class));
+        saveTaskGatewayCallbackArgumentCaptor.getValue().onSuccess(new TaskEntitity());
 
         verify(mockOnSaveTaskListener).onSavedTask(any(Task.class));
     }
