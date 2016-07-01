@@ -1,7 +1,7 @@
-package net.ddns.softux.hey.androidapp;
+package net.ddns.softux.hey.androidapp.di;
 
-import net.ddns.softux.hey.addedittask.AddEditTaskActivityModule;
-import net.ddns.softux.hey.addedittask.AddEditTaskComponent;
+import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivityModule;
+import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskComponent;
 
 import javax.inject.Singleton;
 

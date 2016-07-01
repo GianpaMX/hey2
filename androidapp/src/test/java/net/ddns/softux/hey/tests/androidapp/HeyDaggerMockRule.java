@@ -1,8 +1,8 @@
-package net.ddns.softux.hey;
+package net.ddns.softux.hey.tests.androidapp;
 
 import net.ddns.softux.hey.androidapp.AndroidApp;
-import net.ddns.softux.hey.androidapp.AndroidAppComponent;
-import net.ddns.softux.hey.androidapp.AndroidAppModule;
+import net.ddns.softux.hey.androidapp.di.AndroidAppComponent;
+import net.ddns.softux.hey.androidapp.di.AndroidAppModule;
 
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 

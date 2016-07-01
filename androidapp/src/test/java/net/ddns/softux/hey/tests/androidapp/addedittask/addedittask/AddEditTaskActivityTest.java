@@ -1,11 +1,13 @@
-package net.ddns.softux.hey.addedittask;
+package net.ddns.softux.hey.tests.androidapp.addedittask.addedittask;
 
 import android.os.Build;
 import android.view.MenuItem;
 
 import net.ddns.softux.hey.BuildConfig;
-import net.ddns.softux.hey.HeyDaggerMockRule;
+import net.ddns.softux.hey.tests.androidapp.HeyDaggerMockRule;
 import net.ddns.softux.hey.R;
+import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
+import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
 import net.ddns.softux.hey.androidapp.AndroidApp;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 import net.ddns.softux.hey.todoapp.savetask.Task;

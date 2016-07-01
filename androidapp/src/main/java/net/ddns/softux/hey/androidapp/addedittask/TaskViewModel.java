@@ -1,4 +1,4 @@
-package net.ddns.softux.hey.addedittask;
+package net.ddns.softux.hey.androidapp.addedittask;
 
 import android.os.Parcel;
 import android.os.Parcelable;

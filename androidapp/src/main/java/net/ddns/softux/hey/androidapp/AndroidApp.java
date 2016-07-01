@@ -2,6 +2,11 @@ package net.ddns.softux.hey.androidapp;
 
 import android.app.Application;
 
+import net.ddns.softux.hey.androidapp.di.AndroidAppComponent;
+import net.ddns.softux.hey.androidapp.di.AndroidAppModule;
+import net.ddns.softux.hey.androidapp.di.DaggerAndroidAppComponent;
+
+
 /**
  * Created by juan on 30/06/16.
  */

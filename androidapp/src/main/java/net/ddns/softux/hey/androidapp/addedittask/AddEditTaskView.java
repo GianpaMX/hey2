@@ -1,4 +1,4 @@
-package net.ddns.softux.hey.addedittask;
+package net.ddns.softux.hey.androidapp.addedittask;
 
 /**
  * Created by juan on 30/06/16.

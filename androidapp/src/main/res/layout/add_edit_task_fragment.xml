@@ -1,12 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="net.ddns.softux.hey.addedittask.AddEditTaskFragment">
+    tools:context="net.ddns.softux.hey.androidapp.addedittask.AddEditTaskFragment">
 
     <data>
 
         <variable
             name="taskViewModel"
-            type="net.ddns.softux.hey.addedittask.TaskViewModel" />
+            type="net.ddns.softux.hey.androidapp.addedittask.TaskViewModel" />
     </data>
 
     <LinearLayout

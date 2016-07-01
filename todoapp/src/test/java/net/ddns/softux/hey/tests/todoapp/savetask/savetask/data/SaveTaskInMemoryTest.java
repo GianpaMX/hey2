@@ -1,8 +1,9 @@
-package net.ddns.softux.hey.todoapp.savetask.data;
+package net.ddns.softux.hey.tests.todoapp.savetask.savetask.data;
 
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGatewayCallback;
 import net.ddns.softux.hey.todoapp.savetask.Task;
 import net.ddns.softux.hey.todoapp.savetask.TaskEntitity;
+import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
 
 import org.junit.Test;
 

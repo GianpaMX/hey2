@@ -1,4 +1,4 @@
-package net.ddns.softux.hey.androidapp;
+package net.ddns.softux.hey.androidapp.di;
 
 import android.content.Context;
 
