@@ -1,0 +1,18 @@
+language: android
+jdk: oraclejdk8
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-23.0.3
+  - android-23
+  - extra-android-support
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - sys-img-armeabi-v7a-android-21
+script:
+    - ./gradlew clean :androidapp:testDebugUnitTestCoverage :todoapp:test :todoapp:jacocoTestReport --stacktrace
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
