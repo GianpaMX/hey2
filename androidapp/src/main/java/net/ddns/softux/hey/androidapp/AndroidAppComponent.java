@@ -1,6 +1,7 @@
 package net.ddns.softux.hey.androidapp;
 
-import net.ddns.softux.hey.addedittask.AddEditTaskActivity;
+import net.ddns.softux.hey.addedittask.AddEditTaskActivityModule;
+import net.ddns.softux.hey.addedittask.AddEditTaskComponent;
 
 import javax.inject.Singleton;
 
@@ -13,5 +14,5 @@ import dagger.Component;
 @Component(modules = {AndroidAppModule.class})
 @Singleton
 public interface AndroidAppComponent {
-    void inject(AddEditTaskActivity addEditTaskActivity);
+    AddEditTaskComponent add(AddEditTaskActivityModule addEditTaskActivityModule);
 }

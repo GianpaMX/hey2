@@ -6,11 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.databinding.AddEditTaskFragmentBinding;
 
-public class AddEditTaskFragment extends Fragment {
+public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
     private static final String TASK = "TASK";
 
     protected TaskViewModel taskViewModel;
@@ -36,5 +37,10 @@ public class AddEditTaskFragment extends Fragment {
 
     public TaskViewModel getTaskViewModel() {
         return taskViewModel;
+    }
+
+    @Override
+    public void showSuccess(TaskViewModel taskViewModel) {
+        Toast.makeText(getActivity(), taskViewModel.key, Toast.LENGTH_LONG).show();
     }
 }

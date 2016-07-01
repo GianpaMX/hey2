@@ -2,8 +2,12 @@ package net.ddns.softux.hey.androidapp;
 
 import android.content.Context;
 
+import net.ddns.softux.hey.todoapp.savetask.SaveTaskGateway;
+import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskInteractor;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,24 +18,27 @@ import dagger.Provides;
 
 @Module
 public class AndroidAppModule {
-    Context context;
+    protected Context context;
 
     public AndroidAppModule(Context context) {
         this.context = context;
     }
 
+    @Singleton
     @Provides
     public Context provideContext() {
         return context;
     }
 
-//    @Provides
-//    public SaveTaskUseCase provideTaskUseCase(SaveTaskGateway saveTaskGateway, OnSaveTaskListener onSaveTaskListener) {
-//        return new SaveTaskInteractor(saveTaskGateway, onSaveTaskListener);
-//    }
-//
+    @Singleton
     @Provides
-    public SaveTaskUseCase provideTaskUseCase() {
-        return new SaveTaskInteractor(null, null);
+    public SaveTaskGateway provideSaveTaskGateway() {
+        return new SaveTaskInMemory();
+    }
+
+    @Provides
+    @Singleton
+    public SaveTaskUseCase provideTaskUseCase(SaveTaskGateway saveTaskGateway) {
+        return new SaveTaskInteractor(saveTaskGateway);
     }
 }

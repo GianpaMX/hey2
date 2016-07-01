@@ -3,7 +3,6 @@ package net.ddns.softux.hey.todoapp.savetask;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -13,23 +12,27 @@ import static org.mockito.Mockito.verify;
  */
 public class SaveTaskInteractorTest {
     @Test
-    public void saveTask() {
-        Task task = new Task("Title", "Description");
-        Task savedTask = new Task("key", "Title", "Description");
-
+    public void saveTaskGatewayisCalled() {
         SaveTaskGateway mockSaveTaskGateway = mock(SaveTaskGateway.class);
-        OnSaveTaskListener mockCallback = mock(OnSaveTaskListener.class);
 
-        ArgumentCaptor<SaveTaskGatewayCallback> saveTaskGatewayCallback = ArgumentCaptor.forClass(SaveTaskGatewayCallback.class);
-        ArgumentCaptor<Task> taskArgumentCaptor = ArgumentCaptor.forClass(Task.class);
+        SaveTaskUseCase saveTaskUseCase = new SaveTaskInteractor(mockSaveTaskGateway);
+        saveTaskUseCase.save(mock(Task.class), mock(OnSaveTaskListener.class));
 
-        SaveTaskUseCase saveTaskUseCase = new SaveTaskInteractor(mockSaveTaskGateway, mockCallback);
+        verify(mockSaveTaskGateway).save(any(Task.class), any(SaveTaskGatewayCallback.class));
+    }
 
-        saveTaskUseCase.save(task);
-        verify(mockSaveTaskGateway).save(any(Task.class), saveTaskGatewayCallback.capture());
-        saveTaskGatewayCallback.getValue().onSuccess(savedTask);
-        verify(mockCallback).onSavedTask(taskArgumentCaptor.capture());
+    @Test
+    public void saveTaskDeliverResult() {
+        SaveTaskGateway mockSaveTaskGateway = mock(SaveTaskGateway.class);
+        OnSaveTaskListener mockOnSaveTaskListener = mock(OnSaveTaskListener.class);
 
-        assertNotNull("Key should have a value now", taskArgumentCaptor.getValue().key);
+        SaveTaskUseCase saveTaskUseCase = new SaveTaskInteractor(mockSaveTaskGateway);
+        saveTaskUseCase.save(mock(Task.class), mockOnSaveTaskListener);
+
+        ArgumentCaptor<SaveTaskGatewayCallback> saveTaskGatewayCallbackArgumentCaptor = ArgumentCaptor.forClass(SaveTaskGatewayCallback.class);
+        verify(mockSaveTaskGateway).save(any(Task.class), saveTaskGatewayCallbackArgumentCaptor.capture());
+        saveTaskGatewayCallbackArgumentCaptor.getValue().onSuccess(mock(TaskEntitity.class));
+
+        verify(mockOnSaveTaskListener).onSavedTask(any(Task.class));
     }
 }

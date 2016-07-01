@@ -17,19 +17,31 @@ public class AddEditTaskActivity extends AppCompatActivity {
     @Inject
     public SaveTaskUseCase saveTaskUseCase;
 
+    @Inject
+    public AddEditTaskPresenter addEditTaskPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_task_activity);
 
-        ((AndroidApp)getApplication()).getAndroidAppComponent().inject(this);
+        getAddEditTaskActivityModule().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        AddEditTaskFragment addEditTaskFragment;
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, AddEditTaskFragment.newInstance()).commit();
+            addEditTaskFragment = AddEditTaskFragment.newInstance();
+            getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, addEditTaskFragment).commit();
+        } else {
+            addEditTaskFragment = getTaskFragment();
         }
+        addEditTaskPresenter.setView(addEditTaskFragment);
+    }
+
+    protected AddEditTaskComponent getAddEditTaskActivityModule() {
+        return ((AndroidApp) getApplication()).getAndroidAppComponent().add(new AddEditTaskActivityModule(this));
     }
 
     @Override
@@ -42,14 +54,18 @@ public class AddEditTaskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                saveTaskUseCase.save(getTaskViewModel().toTask());
+                saveTaskUseCase.save(getTaskViewModel().toTask(), addEditTaskPresenter);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private TaskViewModel getTaskViewModel() {
-        return ((AddEditTaskFragment)getSupportFragmentManager().findFragmentById(R.id.task_fragment)).getTaskViewModel();
+    public TaskViewModel getTaskViewModel() {
+        return getTaskFragment().getTaskViewModel();
+    }
+
+    public AddEditTaskFragment getTaskFragment() {
+        return (AddEditTaskFragment) getSupportFragmentManager().findFragmentById(R.id.task_fragment);
     }
 }

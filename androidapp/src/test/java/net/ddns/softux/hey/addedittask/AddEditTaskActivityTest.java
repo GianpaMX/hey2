@@ -36,6 +36,9 @@ public class AddEditTaskActivityTest {
     @Mock
     public SaveTaskUseCase saveTaskUseCase;
 
+    @Mock
+    public AddEditTaskPresenter addEditTaskPresenter;
+
     @Test
     public void saveTask() {
         MenuItem mockSaveMenuItem = mock(MenuItem.class);
@@ -44,6 +47,6 @@ public class AddEditTaskActivityTest {
         AddEditTaskActivity addEditTaskActivity = Robolectric.setupActivity(AddEditTaskActivity.class);
         addEditTaskActivity.onOptionsItemSelected(mockSaveMenuItem);
 
-        verify(saveTaskUseCase).save(any(Task.class));
+        verify(saveTaskUseCase).save(any(Task.class), any(AddEditTaskPresenter.class));
     }
 }

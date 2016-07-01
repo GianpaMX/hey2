@@ -2,19 +2,17 @@ package net.ddns.softux.hey.todoapp.savetask;
 
 public class SaveTaskInteractor implements SaveTaskUseCase {
     protected SaveTaskGateway saveTaskGateway;
-    protected OnSaveTaskListener onSaveTaskListener;
 
-    public SaveTaskInteractor(SaveTaskGateway saveTaskGateway, OnSaveTaskListener onSaveTaskListener) {
+    public SaveTaskInteractor(SaveTaskGateway saveTaskGateway) {
         this.saveTaskGateway = saveTaskGateway;
-        this.onSaveTaskListener = onSaveTaskListener;
     }
 
     @Override
-    public void save(Task task) {
+    public void save(Task task, final OnSaveTaskListener onSaveTaskListener) {
         saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
             @Override
-            public void onSuccess(Task savedTask) {
-                onSaveTaskListener.onSavedTask(savedTask);
+            public void onSuccess(TaskEntitity savedTask) {
+                onSaveTaskListener.onSavedTask(savedTask.toModel());
             }
         });
     }
