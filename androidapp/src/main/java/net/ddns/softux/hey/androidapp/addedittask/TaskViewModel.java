@@ -58,6 +58,24 @@ public class TaskViewModel implements Parcelable {
         dest.writeString(description);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+
+        TaskViewModel that = (TaskViewModel) o;
+
+        return hashCode() == that.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key != null ? key.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
+
     public Task toTask() {
         return new Task(key, title, description);
     }
