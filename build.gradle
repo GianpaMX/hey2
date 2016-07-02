@@ -24,3 +24,8 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task runTestsAndCodeCoverageReport {
+}
+
+runTestsAndCodeCoverageReport.dependsOn 'clean', ':androidapp:jacocoTestDebugUnitTestCoverage', ':todoapp:jacocoTestReport'

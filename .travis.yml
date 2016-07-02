@@ -11,7 +11,7 @@ android:
   - extra-google-m2repository
   - extra-android-m2repository
 script:
-    - ./gradlew clean :androidapp:jacocoTestDebugUnitTestCoverage :todoapp:test :todoapp:jacocoTestReport --stacktrace
+    - ./gradlew runTestsAndCodeCoverageReport --stacktrace
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
