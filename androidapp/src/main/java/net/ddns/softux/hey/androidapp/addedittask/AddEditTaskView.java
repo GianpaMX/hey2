@@ -5,5 +5,5 @@ package net.ddns.softux.hey.androidapp.addedittask;
  */
 
 public interface AddEditTaskView {
-    void showSuccess(TaskViewModel taskViewModel);
+    void showSuccess();
 }

@@ -15,6 +15,7 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
     private static final String TASK = "TASK";
 
     protected TaskViewModel taskViewModel;
+    private AddEditTaskFragmentBinding binding;
 
     public static AddEditTaskFragment newInstance() {
         return new AddEditTaskFragment();
@@ -30,7 +31,7 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_edit_task_fragment, container, false);
-        AddEditTaskFragmentBinding binding = AddEditTaskFragmentBinding.bind(view);
+        binding = AddEditTaskFragmentBinding.bind(view);
         binding.setTaskViewModel(taskViewModel);
         return view;
     }
@@ -39,8 +40,13 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
         return taskViewModel;
     }
 
+    public void setTaskViewModel(TaskViewModel taskViewModel) {
+        this.taskViewModel = taskViewModel;
+        binding.setTaskViewModel(taskViewModel);
+    }
+
     @Override
-    public void showSuccess(TaskViewModel taskViewModel) {
+    public void showSuccess() {
         Toast.makeText(getActivity(), taskViewModel.key, Toast.LENGTH_LONG).show();
     }
 }

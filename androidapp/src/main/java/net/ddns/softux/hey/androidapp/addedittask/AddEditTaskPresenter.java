@@ -28,6 +28,6 @@ public class AddEditTaskPresenter implements OnSaveTaskListener {
 
     @Override
     public void onSavedTask(Task task) {
-        view.showSuccess(new TaskViewModel(task));
+        view.showSuccess();
     }
 }
