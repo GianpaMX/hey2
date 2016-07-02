@@ -13,8 +13,18 @@ import java.util.Map;
  */
 
 public class SaveTaskInMemory implements SaveTaskGateway {
-    protected Map<String, TaskEntitity> tasks = new HashMap<>();
-    private int counter = 0;
+    protected Map<String, TaskEntitity> tasks;
+    private int counter;
+
+    public SaveTaskInMemory() {
+        tasks = new HashMap<>();
+        counter = 0;
+    }
+
+    public SaveTaskInMemory(Map<String, TaskEntitity> tasks, int counter) {
+        this.tasks = tasks;
+        this.counter = counter;
+    }
 
     @Override
     public void save(Task task, SaveTaskGatewayCallback callback) {

@@ -12,10 +12,6 @@ public class Task {
         this(null, null, null);
     }
 
-    public Task(String title, String description) {
-        this(null, title, description);
-    }
-
     public Task(String key, String title, String description) {
         this.key = key;
         this.title = title;
