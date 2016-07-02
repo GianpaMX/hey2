@@ -19,6 +19,10 @@ public class TaskEntitity {
         this.description = description;
     }
 
+    public TaskEntitity(Task task) {
+        copyFrom(task);
+    }
+
     public void copyFrom(Task task) {
         this.key = task.key;
         this.title = task.title;

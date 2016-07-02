@@ -31,11 +31,10 @@ public class SaveTaskInMemory implements SaveTaskGateway {
         TaskEntitity taskEntitity;
         if (task.key != null && tasks.containsKey(task.key)) {
             taskEntitity = tasks.get(task.key);
+            taskEntitity.copyFrom(task);
         } else {
             taskEntitity = new TaskEntitity(String.valueOf(++counter), task.title, task.description);
         }
-
-        taskEntitity.copyFrom(task);
 
         callback.onSuccess(taskEntitity);
     }

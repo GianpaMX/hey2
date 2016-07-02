@@ -6,10 +6,11 @@ import net.ddns.softux.hey.todoapp.savetask.TaskEntitity;
 import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Map;
 
-import static org.mockito.Matchers.any;
+import static junit.framework.TestCase.assertNotNull;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -22,11 +23,13 @@ public class SaveTaskInMemoryTest {
     @Test
     public void save() {
         SaveTaskGatewayCallback mockSaveTaskGatewayCallback = mock(SaveTaskGatewayCallback.class);
+        ArgumentCaptor<TaskEntitity> argumentCaptor = ArgumentCaptor.forClass(TaskEntitity.class);
 
         SaveTaskInMemory saveTaskInMemory = new SaveTaskInMemory();
         saveTaskInMemory.save(new Task(), mockSaveTaskGatewayCallback);
 
-        verify(mockSaveTaskGatewayCallback).onSuccess(any(TaskEntitity.class));
+        verify(mockSaveTaskGatewayCallback).onSuccess(argumentCaptor.capture());
+        assertNotNull("A saved task should have a key", argumentCaptor.getValue().key);
     }
 
     @Test
