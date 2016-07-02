@@ -1,4 +1,4 @@
-package net.ddns.softux.hey.tests.androidapp.addedittask.addedittask;
+package net.ddns.softux.hey.tests.androidapp.addedittask;
 
 import android.os.Build;
 import android.view.MenuItem;
