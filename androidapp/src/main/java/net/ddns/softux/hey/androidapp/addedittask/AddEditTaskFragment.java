@@ -13,7 +13,7 @@ import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.databinding.AddEditTaskFragmentBinding;
 
 public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
-    private static final String TASK_VIEW_MODEL = "TASK_VIEW_MODEL";
+    public static final String TASK_VIEW_MODEL = "TASK_VIEW_MODEL";
 
     protected AddEditTaskFragmentContainerListener containerListener;
 

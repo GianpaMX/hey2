@@ -42,7 +42,7 @@ public class TaskListFragmentTest {
 
         @NonNull
         @Override
-        protected TaskListAdapter newTaskListAdapter() {
+        protected TaskListAdapter newTaskListAdapter(TaskListFragmentContainerListener taskListFragmentContainerListener) {
             return mockTaskListAdapter;
         }
     }

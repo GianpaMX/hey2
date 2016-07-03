@@ -33,7 +33,8 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
 
         AddEditTaskFragment addEditTaskFragment = getTaskFragment();
         if (addEditTaskFragment == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, newAddEditTaskFragmentInstance()).commit();
+            addEditTaskFragment = newAddEditTaskFragmentInstance();
+            getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, addEditTaskFragment).commit();
         }
         addEditTaskPresenter.setView(addEditTaskFragment);
     }

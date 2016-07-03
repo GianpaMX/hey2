@@ -10,6 +10,7 @@ import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.AndroidApp;
 import net.ddns.softux.hey.androidapp.BaseActivity;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
+import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.androidapp.tasklist.di.TaskListActivityModule;
 import net.ddns.softux.hey.androidapp.tasklist.di.TaskListComponent;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListUseCase;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
 /**
  * Created by juan on 2/07/16.
  */
-public class TaskListActivity extends BaseActivity {
+public class TaskListActivity extends BaseActivity implements TaskListFragment.TaskListFragmentContainerListener {
 
     @Inject
     public TaskListPresenter taskListPresenter;
@@ -61,5 +62,19 @@ public class TaskListActivity extends BaseActivity {
 
     private TaskListComponent getTaskListActivityModule() {
         return ((AndroidApp) getApplication()).getAndroidAppComponent().add(new TaskListActivityModule(this));
+    }
+
+    @Override
+    public void onClickTask(TaskViewModel taskViewModel) {
+
+    }
+
+    @Override
+    public boolean onLongClickTask(TaskViewModel taskViewModel) {
+        Intent intent = new Intent(this, AddEditTaskActivity.class);
+        intent.putExtra(AddEditTaskActivity.TASK_VIEW_MODEL, taskViewModel);
+        startActivity(intent);
+
+        return true;
     }
 }
