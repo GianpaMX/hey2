@@ -1,8 +1,6 @@
 package net.ddns.softux.hey.androidapp.addedittask;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,7 +10,7 @@ import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 
 import javax.inject.Inject;
 
-public class AddEditTaskActivity extends AppCompatActivity {
+public class AddEditTaskActivity extends BaseActivity {
 
     @Inject
     public SaveTaskUseCase saveTaskUseCase;
@@ -27,8 +25,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
 
         getAddEditTaskActivityModule().inject(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setupToolbar();
 
         AddEditTaskFragment addEditTaskFragment;
         if (savedInstanceState == null) {

@@ -7,20 +7,17 @@ import android.view.MenuItem;
 
 import net.ddns.softux.hey.BuildConfig;
 import net.ddns.softux.hey.R;
-import net.ddns.softux.hey.androidapp.AndroidApp;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
-import net.ddns.softux.hey.tests.androidapp.HeyDaggerMockRule;
+import net.ddns.softux.hey.tests.androidapp.ActivityTest;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 import net.ddns.softux.hey.todoapp.savetask.Task;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
 import org.robolectric.util.ActivityController;
@@ -34,12 +31,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by juan on 30/06/16.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.KITKAT)
-public class AddEditTaskActivityTest {
-    @Rule
-    public HeyDaggerMockRule mockRule = new HeyDaggerMockRule((AndroidApp) RuntimeEnvironment.application);
-
+public class AddEditTaskActivityTest extends ActivityTest {
     @Mock
     public SaveTaskUseCase saveTaskUseCase;
 
