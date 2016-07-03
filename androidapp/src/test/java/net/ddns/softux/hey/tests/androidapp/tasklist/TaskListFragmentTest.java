@@ -32,7 +32,7 @@ public class TaskListFragmentTest {
         TestableTaskListFragment taskListFragment = new TestableTaskListFragment();
         SupportFragmentTestUtil.startFragment(taskListFragment);
 
-        taskListFragment.onTaskListLoad(new ArrayList<TaskViewModel>());
+        taskListFragment.loadTaskList(new ArrayList<TaskViewModel>());
 
         verify(taskListFragment.mockTaskListAdapter).swapTaskViewModelList(any(List.class));
     }

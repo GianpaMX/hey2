@@ -8,5 +8,6 @@ import java.util.List;
  * Created by juan on 2/07/16.
  */
 public interface TaskListView {
-    void onTaskListLoad(List<TaskViewModel> taskViewModelList);
+    void loadTaskList(List<TaskViewModel> taskViewModelList);
+    void addTask(TaskViewModel taskViewModel);
 }

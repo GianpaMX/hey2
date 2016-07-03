@@ -47,7 +47,12 @@ public class TaskListFragment extends Fragment implements TaskListView {
     }
 
     @Override
-    public void onTaskListLoad(List<TaskViewModel> taskViewModelList) {
+    public void loadTaskList(List<TaskViewModel> taskViewModelList) {
         taskListAdapter.swapTaskViewModelList(taskViewModelList);
+    }
+
+    @Override
+    public void addTask(TaskViewModel taskViewModel) {
+        taskListAdapter.addTaskViewModel(taskViewModel);
     }
 }

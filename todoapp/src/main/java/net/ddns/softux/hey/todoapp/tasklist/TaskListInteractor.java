@@ -22,7 +22,8 @@ public class TaskListInteractor implements TaskListUseCase, TaskListGateway.OnTa
     @Override
     public void start(OnTaskListLoadListener onTaskListLoadListener) {
         this.onTaskListLoadListener = onTaskListLoadListener;
-        taskListGateway.loadTaskList(this);
+        taskListGateway.setOnTaskListGatewayListener(this);
+        taskListGateway.loadTaskList();
     }
 
     @Override
@@ -32,5 +33,10 @@ public class TaskListInteractor implements TaskListUseCase, TaskListGateway.OnTa
             taskList.add(entitity.toModel());
         }
         onTaskListLoadListener.onTaskListLoad(taskList);
+    }
+
+    @Override
+    public void onTaskAdded(TaskEntitity taskEntitity) {
+        onTaskListLoadListener.onTaskAdded(taskEntitity.toModel());
     }
 }

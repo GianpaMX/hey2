@@ -29,7 +29,7 @@ public class TaskListInteractorTest {
         TaskListInteractor taskListInteractor = new TaskListInteractor(mockTaskListGateway);
         taskListInteractor.start(mock(OnTaskListLoadListener.class));
 
-        verify(mockTaskListGateway).loadTaskList(any(TaskListGateway.OnTaskListGatewayListener.class));
+        verify(mockTaskListGateway).loadTaskList();
     }
 
     @Test
@@ -45,11 +45,24 @@ public class TaskListInteractorTest {
         TaskListInteractor taskListInteractor = new TaskListInteractor(mockTaskListGateway);
         taskListInteractor.start(mockOnTaskListLoadListener);
 
-        verify(mockTaskListGateway).loadTaskList(argumentCaptor.capture());
+        verify(mockTaskListGateway).setOnTaskListGatewayListener(argumentCaptor.capture());
+        verify(mockTaskListGateway).loadTaskList();
 
         argumentCaptor.getValue().onTaskListLoad(expectedTaskEntitities);
 
         verify(mockOnTaskListLoadListener).onTaskListLoad((List<Task>) argThat(hasSize(1)));
     }
 
+    @Test
+    public void onTaskAdded() {
+        TaskListGateway mockTaskListGateway = mock(TaskListGateway.class);
+        OnTaskListLoadListener mockOnTaskListLoadListener = mock(OnTaskListLoadListener.class);
+
+        TaskListInteractor taskListInteractor = new TaskListInteractor(mockTaskListGateway);
+        taskListInteractor.start(mockOnTaskListLoadListener);
+
+        taskListInteractor.onTaskAdded(new TaskEntitity());
+
+        verify(mockOnTaskListLoadListener).onTaskAdded(any(Task.class));
+    }
 }

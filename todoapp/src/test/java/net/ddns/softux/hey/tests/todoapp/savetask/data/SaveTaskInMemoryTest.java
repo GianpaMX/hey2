@@ -4,6 +4,7 @@ import net.ddns.softux.hey.todoapp.savetask.SaveTaskGatewayCallback;
 import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
 import net.ddns.softux.hey.todoapp.task.Task;
 import net.ddns.softux.hey.todoapp.task.TaskEntitity;
+import net.ddns.softux.hey.todoapp.tasklist.TaskListGateway;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -49,5 +51,16 @@ public class SaveTaskInMemoryTest {
         saveTaskInMemory.save(existingTask.toModel(), mockSaveTaskGatewayCallback);
 
         verify(mockSaveTaskGatewayCallback).onSuccess(eq(existingTask));
+    }
+
+    @Test
+    public void taskListGatewayListener() {
+        TaskListGateway.OnTaskListGatewayListener mockOnTaskListGatewayListener = mock(TaskListGateway.OnTaskListGatewayListener.class);
+
+        SaveTaskInMemory saveTaskInMemory = new SaveTaskInMemory();
+        saveTaskInMemory.setOnTaskListGatewayListener(mockOnTaskListGatewayListener);
+        saveTaskInMemory.save(new Task(), mock(SaveTaskGatewayCallback.class));
+
+        verify(mockOnTaskListGatewayListener).onTaskAdded(any(TaskEntitity.class));
     }
 }

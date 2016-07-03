@@ -11,6 +11,7 @@ import java.util.Map;
  */
 
 public class TaskListInMemory implements TaskListGateway {
+    protected OnTaskListGatewayListener onTaskListGatewayListener;
     protected Map<String, TaskEntitity> tasks;
 
     public TaskListInMemory() {
@@ -22,7 +23,12 @@ public class TaskListInMemory implements TaskListGateway {
     }
 
     @Override
-    public void loadTaskList(OnTaskListGatewayListener onTaskListGatewayListener) {
+    public void setOnTaskListGatewayListener(OnTaskListGatewayListener onTaskListGatewayListener) {
+        this.onTaskListGatewayListener = onTaskListGatewayListener;
+    }
+
+    @Override
+    public void loadTaskList() {
         onTaskListGatewayListener.onTaskListLoad(tasks.values());
     }
 

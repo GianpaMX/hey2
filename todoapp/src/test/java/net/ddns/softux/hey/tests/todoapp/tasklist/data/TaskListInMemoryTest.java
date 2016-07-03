@@ -24,7 +24,8 @@ public class TaskListInMemoryTest {
         TaskListGateway.OnTaskListGatewayListener mockOnTaskListGatewayListener = mock(TaskListGateway.OnTaskListGatewayListener.class);
 
         TaskListInMemory taskListInMemory = new TaskListInMemory();
-        taskListInMemory.loadTaskList(mockOnTaskListGatewayListener);
+        taskListInMemory.setOnTaskListGatewayListener(mockOnTaskListGatewayListener);
+        taskListInMemory.loadTaskList();
 
         verify(mockOnTaskListGatewayListener).onTaskListLoad((Collection<TaskEntitity>) argThat(hasSize(0)));
     }
@@ -38,7 +39,8 @@ public class TaskListInMemoryTest {
         TaskListGateway.OnTaskListGatewayListener mockOnTaskListGatewayListener = mock(TaskListGateway.OnTaskListGatewayListener.class);
 
         TaskListInMemory taskListInMemory = new TaskListInMemory(expectedTasks);
-        taskListInMemory.loadTaskList(mockOnTaskListGatewayListener);
+        taskListInMemory.setOnTaskListGatewayListener(mockOnTaskListGatewayListener);
+        taskListInMemory.loadTaskList();
 
         verify(mockOnTaskListGatewayListener).onTaskListLoad((Collection<TaskEntitity>) argThat(hasSize(1)));
     }

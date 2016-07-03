@@ -1,5 +1,6 @@
 package net.ddns.softux.hey.androidapp.tasklist;
 
+import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.todoapp.task.Task;
 import net.ddns.softux.hey.todoapp.tasklist.OnTaskListLoadListener;
 
@@ -16,6 +17,11 @@ public class TaskListPresenter implements OnTaskListLoadListener {
     public void onTaskListLoad(List<Task> tasks) {
         TaskListViewModel taskViewModelList = new TaskListViewModel();
         taskViewModelList.addAll(tasks);
-        view.onTaskListLoad(taskViewModelList);
+        view.loadTaskList(taskViewModelList);
+    }
+
+    @Override
+    public void onTaskAdded(Task task) {
+        view.addTask(new TaskViewModel(task));
     }
 }

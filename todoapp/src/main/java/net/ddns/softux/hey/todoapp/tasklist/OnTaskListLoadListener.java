@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface OnTaskListLoadListener {
     void onTaskListLoad(List<Task> tasks);
+    void onTaskAdded(Task task);
 }

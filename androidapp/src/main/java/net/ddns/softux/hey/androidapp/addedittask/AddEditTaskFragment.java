@@ -41,6 +41,7 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
         return taskViewModel;
     }
 
+    @Override
     public void setTaskViewModel(TaskViewModel taskViewModel) {
         this.taskViewModel = taskViewModel;
         binding.setTaskViewModel(taskViewModel);
@@ -49,5 +50,6 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
     @Override
     public void showSuccess() {
         Toast.makeText(getActivity(), taskViewModel.key, Toast.LENGTH_LONG).show();
+        getActivity().finish();
     }
 }

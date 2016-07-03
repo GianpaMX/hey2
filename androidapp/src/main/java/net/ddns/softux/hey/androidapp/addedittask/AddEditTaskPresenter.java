@@ -1,5 +1,6 @@
 package net.ddns.softux.hey.androidapp.addedittask;
 
+import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.todoapp.savetask.OnSaveTaskListener;
 import net.ddns.softux.hey.todoapp.task.Task;
 
@@ -28,6 +29,7 @@ public class AddEditTaskPresenter implements OnSaveTaskListener {
 
     @Override
     public void onSavedTask(Task task) {
+        view.setTaskViewModel(new TaskViewModel(task));
         view.showSuccess();
     }
 }

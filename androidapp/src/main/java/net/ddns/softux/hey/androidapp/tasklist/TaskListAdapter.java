@@ -38,13 +38,19 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     }
 
     public void swapTaskViewModelList(List<TaskViewModel> taskViewModelList) {
-        if(!this.taskViewModelList.isEmpty()) {
+        if (!this.taskViewModelList.isEmpty()) {
             this.taskViewModelList.clear();
         }
 
         this.taskViewModelList.addAll(taskViewModelList);
 
         notifyDataSetChanged();
+    }
+
+    public void addTaskViewModel(TaskViewModel taskViewModel) {
+        int position = taskViewModelList.size();
+        taskViewModelList.add(taskViewModel);
+        notifyItemInserted(position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

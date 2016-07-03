@@ -31,7 +31,7 @@ public class TaskListPresenterTest {
 
         taskListPresenter.onTaskListLoad(tasks);
 
-        verify(mockTaskListView).onTaskListLoad((List<TaskViewModel>) argThat(hasSize(1)));
+        verify(mockTaskListView).loadTaskList((List<TaskViewModel>) argThat(hasSize(1)));
     }
 
 }
