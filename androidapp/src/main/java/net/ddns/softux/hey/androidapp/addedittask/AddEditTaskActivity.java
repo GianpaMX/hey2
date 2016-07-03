@@ -6,6 +6,8 @@ import android.view.MenuItem;
 
 import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.AndroidApp;
+import net.ddns.softux.hey.androidapp.BaseActivity;
+import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 
 import javax.inject.Inject;
@@ -27,12 +29,10 @@ public class AddEditTaskActivity extends BaseActivity {
 
         setupToolbar();
 
-        AddEditTaskFragment addEditTaskFragment;
-        if (savedInstanceState == null) {
+        AddEditTaskFragment addEditTaskFragment = getTaskFragment();
+        if (addEditTaskFragment == null) {
             addEditTaskFragment = AddEditTaskFragment.newInstance();
             getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, addEditTaskFragment).commit();
-        } else {
-            addEditTaskFragment = getTaskFragment();
         }
         addEditTaskPresenter.setView(addEditTaskFragment);
     }

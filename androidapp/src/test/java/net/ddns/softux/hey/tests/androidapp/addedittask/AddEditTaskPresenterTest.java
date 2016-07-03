@@ -2,7 +2,7 @@ package net.ddns.softux.hey.tests.androidapp.addedittask;
 
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskView;
-import net.ddns.softux.hey.todoapp.savetask.Task;
+import net.ddns.softux.hey.todoapp.task.Task;
 
 import org.junit.Test;
 

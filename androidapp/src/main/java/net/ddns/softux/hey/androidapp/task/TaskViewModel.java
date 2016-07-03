@@ -1,9 +1,9 @@
-package net.ddns.softux.hey.androidapp.addedittask;
+package net.ddns.softux.hey.androidapp.task;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import net.ddns.softux.hey.todoapp.savetask.Task;
+import net.ddns.softux.hey.todoapp.task.Task;
 
 /**
  * Created by juan on 30/06/16.

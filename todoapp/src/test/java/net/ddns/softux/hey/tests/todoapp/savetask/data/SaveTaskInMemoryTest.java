@@ -1,9 +1,9 @@
-package net.ddns.softux.hey.tests.todoapp.savetask.savetask.data;
+package net.ddns.softux.hey.tests.todoapp.savetask.data;
 
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGatewayCallback;
-import net.ddns.softux.hey.todoapp.savetask.Task;
-import net.ddns.softux.hey.todoapp.savetask.TaskEntitity;
 import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
+import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.task.TaskEntitity;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -11,6 +11,7 @@ import org.mockito.ArgumentCaptor;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -30,6 +31,8 @@ public class SaveTaskInMemoryTest {
 
         verify(mockSaveTaskGatewayCallback).onSuccess(argumentCaptor.capture());
         assertNotNull("A saved task should have a key", argumentCaptor.getValue().key);
+        assertEquals("Size should be 1 now", 1, saveTaskInMemory.size());
+
     }
 
     @Test
@@ -38,6 +41,7 @@ public class SaveTaskInMemoryTest {
         TaskEntitity existingTask = new TaskEntitity(existingKey, "title", "description");
         Map<String, TaskEntitity> mockMap = mock(Map.class);
         SaveTaskGatewayCallback mockSaveTaskGatewayCallback = mock(SaveTaskGatewayCallback.class);
+
         when(mockMap.containsKey(existingKey)).thenReturn(true);
         when(mockMap.get(existingKey)).thenReturn(existingTask);
 

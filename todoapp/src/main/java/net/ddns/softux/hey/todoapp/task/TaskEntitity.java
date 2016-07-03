@@ -1,4 +1,4 @@
-package net.ddns.softux.hey.todoapp.savetask;
+package net.ddns.softux.hey.todoapp.task;
 
 /**
  * Created by juan on 30/06/16.

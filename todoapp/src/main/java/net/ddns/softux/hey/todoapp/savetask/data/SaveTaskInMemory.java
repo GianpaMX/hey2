@@ -2,27 +2,26 @@ package net.ddns.softux.hey.todoapp.savetask.data;
 
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGateway;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGatewayCallback;
-import net.ddns.softux.hey.todoapp.savetask.Task;
-import net.ddns.softux.hey.todoapp.savetask.TaskEntitity;
+import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.task.TaskEntitity;
+import net.ddns.softux.hey.todoapp.tasklist.data.TaskListInMemory;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by juan on 30/06/16.
  */
 
-public class SaveTaskInMemory implements SaveTaskGateway {
-    protected Map<String, TaskEntitity> tasks;
-    private int counter;
+public class SaveTaskInMemory extends TaskListInMemory implements SaveTaskGateway {
+    protected int counter;
 
     public SaveTaskInMemory() {
-        tasks = new HashMap<>();
+        super();
         counter = 0;
     }
 
     public SaveTaskInMemory(Map<String, TaskEntitity> tasks, int counter) {
-        this.tasks = tasks;
+        super(tasks);
         this.counter = counter;
     }
 
@@ -34,8 +33,10 @@ public class SaveTaskInMemory implements SaveTaskGateway {
             taskEntitity.copyFrom(task);
         } else {
             taskEntitity = new TaskEntitity(String.valueOf(++counter), task.title, task.description);
+            tasks.put(taskEntitity.key, taskEntitity);
         }
 
-        callback.onSuccess(taskEntitity);
+        if (callback != null)
+            callback.onSuccess(taskEntitity);
     }
 }

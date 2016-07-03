@@ -1,11 +1,11 @@
-package net.ddns.softux.hey.tests.androidapp.addedittask;
+package net.ddns.softux.hey.tests.androidapp.task;
 
 import android.os.Build;
 import android.os.Parcel;
 
 import net.ddns.softux.hey.BuildConfig;
-import net.ddns.softux.hey.androidapp.addedittask.TaskViewModel;
-import net.ddns.softux.hey.todoapp.savetask.Task;
+import net.ddns.softux.hey.androidapp.task.TaskViewModel;
+import net.ddns.softux.hey.todoapp.task.Task;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

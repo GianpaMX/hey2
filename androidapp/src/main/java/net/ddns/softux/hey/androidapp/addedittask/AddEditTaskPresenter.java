@@ -1,7 +1,7 @@
 package net.ddns.softux.hey.androidapp.addedittask;
 
 import net.ddns.softux.hey.todoapp.savetask.OnSaveTaskListener;
-import net.ddns.softux.hey.todoapp.savetask.Task;
+import net.ddns.softux.hey.todoapp.task.Task;
 
 /**
  * Created by juan on 30/06/16.

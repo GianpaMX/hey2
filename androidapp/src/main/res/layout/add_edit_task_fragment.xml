@@ -6,7 +6,7 @@
 
         <variable
             name="taskViewModel"
-            type="net.ddns.softux.hey.androidapp.addedittask.TaskViewModel" />
+            type="net.ddns.softux.hey.androidapp.task.TaskViewModel" />
     </data>
 
     <LinearLayout

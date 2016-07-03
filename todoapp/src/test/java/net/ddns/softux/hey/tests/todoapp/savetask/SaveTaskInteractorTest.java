@@ -1,12 +1,12 @@
-package net.ddns.softux.hey.tests.todoapp.savetask.savetask;
+package net.ddns.softux.hey.tests.todoapp.savetask;
 
 import net.ddns.softux.hey.todoapp.savetask.OnSaveTaskListener;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGateway;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGatewayCallback;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskInteractor;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
-import net.ddns.softux.hey.todoapp.savetask.Task;
-import net.ddns.softux.hey.todoapp.savetask.TaskEntitity;
+import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.task.TaskEntitity;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

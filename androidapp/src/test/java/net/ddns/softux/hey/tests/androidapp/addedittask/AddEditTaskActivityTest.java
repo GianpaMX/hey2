@@ -1,24 +1,19 @@
 package net.ddns.softux.hey.tests.androidapp.addedittask;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import net.ddns.softux.hey.BuildConfig;
 import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
 import net.ddns.softux.hey.tests.androidapp.ActivityTest;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
-import net.ddns.softux.hey.todoapp.savetask.Task;
+import net.ddns.softux.hey.todoapp.task.Task;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
 import org.robolectric.util.ActivityController;
 
