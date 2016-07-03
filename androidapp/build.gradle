@@ -3,18 +3,18 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply from: 'jacoco.gradle'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24"
 
     defaultConfig {
         applicationId "net.ddns.softux.hey"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    final SUPPORT_LIBRARY_VERSION = '23.4.0'
+    final SUPPORT_LIBRARY_VERSION = '24.0.0'
     final ROBOLECTRIC_VERSION = '3.1'
     final DAGGER_VERSION = '2.2'
 
