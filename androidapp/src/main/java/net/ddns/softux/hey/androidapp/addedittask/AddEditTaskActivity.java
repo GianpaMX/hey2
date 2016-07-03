@@ -3,6 +3,7 @@ package net.ddns.softux.hey.androidapp.addedittask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.AndroidApp;
@@ -12,8 +13,9 @@ import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 
 import javax.inject.Inject;
 
-public class AddEditTaskActivity extends BaseActivity {
+public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFragment.AddEditTaskFragmentContainerListener {
 
+    public static final String TASK_VIEW_MODEL = "TASK_VIEW_MODEL";
     @Inject
     public SaveTaskUseCase saveTaskUseCase;
 
@@ -31,10 +33,19 @@ public class AddEditTaskActivity extends BaseActivity {
 
         AddEditTaskFragment addEditTaskFragment = getTaskFragment();
         if (addEditTaskFragment == null) {
-            addEditTaskFragment = AddEditTaskFragment.newInstance();
-            getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, addEditTaskFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, newAddEditTaskFragmentInstance()).commit();
         }
         addEditTaskPresenter.setView(addEditTaskFragment);
+    }
+
+    private AddEditTaskFragment newAddEditTaskFragmentInstance() {
+        AddEditTaskFragment addEditTaskFragment;
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(TASK_VIEW_MODEL)) {
+            addEditTaskFragment = AddEditTaskFragment.newInstance((TaskViewModel) getIntent().getExtras().getParcelable(TASK_VIEW_MODEL));
+        } else {
+            addEditTaskFragment = AddEditTaskFragment.newInstance();
+        }
+        return addEditTaskFragment;
     }
 
     protected AddEditTaskComponent getAddEditTaskActivityModule() {
@@ -64,5 +75,11 @@ public class AddEditTaskActivity extends BaseActivity {
 
     public AddEditTaskFragment getTaskFragment() {
         return (AddEditTaskFragment) getSupportFragmentManager().findFragmentById(R.id.task_fragment);
+    }
+
+    @Override
+    public void onTaskSavedSuccessfully(TaskViewModel taskViewModel) {
+        Toast.makeText(this, taskViewModel.key, Toast.LENGTH_LONG).show();
+        finish();
     }
 }

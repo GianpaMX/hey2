@@ -1,5 +1,6 @@
 package net.ddns.softux.hey.tests.androidapp.addedittask;
 
+import android.content.Context;
 import android.os.Build;
 
 import net.ddns.softux.hey.BuildConfig;
@@ -10,10 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowToast;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by juan on 2/07/16.
@@ -23,13 +24,28 @@ import static junit.framework.Assert.assertEquals;
 public class AddEditTaskFragmentTest {
     @Test
     public void showSuccess() throws Exception {
-        AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
+        TaskViewModel expectedTaskViewModel = new TaskViewModel("key", "title", "description");
+
+        AddEditTaskFragment.AddEditTaskFragmentContainerListener mockContainerListener = mock(AddEditTaskFragment.AddEditTaskFragmentContainerListener.class);
+
+        TestableAddEditTaskFragment addEditTaskFragment = new TestableAddEditTaskFragment();
+        addEditTaskFragment.testableContainerListener = mockContainerListener;
+
         SupportFragmentTestUtil.startFragment(addEditTaskFragment);
 
-        String expectedKey = "key";
-        addEditTaskFragment.setTaskViewModel(new TaskViewModel(expectedKey, "title", "description"));
+        addEditTaskFragment.setTaskViewModel(expectedTaskViewModel);
         addEditTaskFragment.showSuccess();
 
-        assertEquals(expectedKey, ShadowToast.getTextOfLatestToast());
+        verify(mockContainerListener).onTaskSavedSuccessfully(expectedTaskViewModel);
+    }
+
+    public static class TestableAddEditTaskFragment extends AddEditTaskFragment {
+        public AddEditTaskFragmentContainerListener testableContainerListener;
+
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            containerListener = testableContainerListener;
+        }
     }
 }
