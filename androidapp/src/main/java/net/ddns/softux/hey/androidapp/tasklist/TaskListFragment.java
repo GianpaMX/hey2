@@ -47,11 +47,7 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
 
     @NonNull
     protected TaskListAdapter newTaskListAdapter(TaskListFragmentContainerListener taskListFragmentContainerListener) {
-        if (taskListFragmentContainerListener == null) {
-            return new TaskListAdapter();
-        } else {
-            return new TaskListAdapter(taskListFragmentContainerListener);
-        }
+        return new TaskListAdapter(taskListFragmentContainerListener);
     }
 
     @Override
@@ -70,8 +66,6 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
     }
 
     public interface TaskListFragmentContainerListener {
-        void onClickTask(TaskViewModel taskViewModel);
-
         boolean onLongClickTask(TaskViewModel taskViewModel);
     }
 }

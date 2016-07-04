@@ -65,11 +65,6 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
     }
 
     @Override
-    public void onClickTask(TaskViewModel taskViewModel) {
-
-    }
-
-    @Override
     public boolean onLongClickTask(TaskViewModel taskViewModel) {
         Intent intent = new Intent(this, AddEditTaskActivity.class);
         intent.putExtra(AddEditTaskActivity.TASK_VIEW_MODEL, taskViewModel);

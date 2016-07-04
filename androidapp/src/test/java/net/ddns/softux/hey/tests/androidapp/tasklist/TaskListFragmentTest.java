@@ -8,6 +8,7 @@ import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListAdapter;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListFragment;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -27,14 +28,26 @@ import static org.mockito.Mockito.verify;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
 public class TaskListFragmentTest {
+
+    private TestableTaskListFragment taskListFragment;
+
+    @Before
+    public void setUp() {
+        taskListFragment = new TestableTaskListFragment();
+        SupportFragmentTestUtil.startFragment(taskListFragment);
+    }
+
     @Test
     public void onTaskListLoad() {
-        TestableTaskListFragment taskListFragment = new TestableTaskListFragment();
-        SupportFragmentTestUtil.startFragment(taskListFragment);
-
         taskListFragment.loadTaskList(new ArrayList<TaskViewModel>());
-
         verify(taskListFragment.mockTaskListAdapter).swapTaskViewModelList(any(List.class));
+    }
+
+    @Test
+    public void addTask() {
+        TaskViewModel expectedTaskViewModel = new TaskViewModel();
+        taskListFragment.addTask(expectedTaskViewModel);
+        verify(taskListFragment.mockTaskListAdapter).addTaskViewModel(expectedTaskViewModel);
     }
 
     public static class TestableTaskListFragment extends TaskListFragment {
