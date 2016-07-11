@@ -23,6 +23,7 @@ public class TaskViewModel implements Parcelable {
     public String key;
     public String title;
     public String description;
+    public boolean checked;
 
     public TaskViewModel() {
         this(null, null, null);

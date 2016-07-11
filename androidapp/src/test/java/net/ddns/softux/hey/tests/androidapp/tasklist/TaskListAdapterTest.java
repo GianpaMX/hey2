@@ -3,10 +3,12 @@ package net.ddns.softux.hey.tests.androidapp.tasklist;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import net.ddns.softux.hey.BuildConfig;
+import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListAdapter;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListFragment;
@@ -24,7 +26,6 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -82,9 +83,10 @@ public class TaskListAdapterTest {
         taskViewModelList.add(new TaskViewModel());
 
         View mockView = mock(View.class);
-        when(mockView.findViewById(anyInt())).thenReturn(mock(TextView.class));
+        when(mockView.findViewById(R.id.title)).thenReturn(mock(TextView.class));
+        when(mockView.findViewById(R.id.checkbox)).thenReturn(mock(CheckBox.class));
 
-        TaskListAdapter.ViewHolder viewHolder = new TaskListAdapter.ViewHolder(mockView, mock(View.OnLongClickListener.class));
+        TaskListAdapter.ViewHolder viewHolder = new TaskListAdapter.ViewHolder(mockView, mock(TaskListAdapter.ViewHolder.TaskListItemListener.class));
 
         taskListAdapter.swapTaskViewModelList(taskViewModelList);
         taskListAdapter.onBindViewHolder(viewHolder, 0);

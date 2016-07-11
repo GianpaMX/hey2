@@ -67,5 +67,7 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
 
     public interface TaskListFragmentContainerListener {
         boolean onLongClickTask(TaskViewModel taskViewModel);
+
+        void onCheckedTask(TaskViewModel taskViewModel);
     }
 }

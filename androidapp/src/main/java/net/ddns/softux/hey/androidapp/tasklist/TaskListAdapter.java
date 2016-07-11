@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import net.ddns.softux.hey.R;
@@ -19,13 +21,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     private List<TaskViewModel> taskViewModelList;
     private TaskListFragment.TaskListFragmentContainerListener taskListFragmentContainerListener;
 
-    public final View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View view) {
-            return TaskListAdapter.this.taskListFragmentContainerListener.onLongClickTask((TaskViewModel) view.getTag());
-        }
-    };
-
     public TaskListAdapter(TaskListFragment.TaskListFragmentContainerListener taskListFragmentContainerListener) {
         taskViewModelList = new ArrayList<>();
         this.taskListFragmentContainerListener = taskListFragmentContainerListener;
@@ -33,7 +28,17 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_item, parent, false), onLongClickListener);
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_item, parent, false), new ViewHolder.TaskListItemListener() {
+            @Override
+            public View.OnLongClickListener getOnLongClickListener() {
+                return onLongClickListener;
+            }
+
+            @Override
+            public CompoundButton.OnCheckedChangeListener getOnCheckChangeListener() {
+                return onCheckedChangeListener;
+            }
+        });
     }
 
     @Override
@@ -62,18 +67,46 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         notifyItemInserted(position);
     }
 
+    public final View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            return TaskListAdapter.this.taskListFragmentContainerListener.onLongClickTask((TaskViewModel) view.getTag());
+        }
+    };
+    public final CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+            View view = (View) compoundButton.getParent();
+            if(checked) {
+                TaskListAdapter.this.taskListFragmentContainerListener.onCheckedTask((TaskViewModel) view.getTag());
+            }
+        }
+    };
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView title;
+        public final CheckBox checkbox;
 
-        public ViewHolder(View itemView, View.OnLongClickListener onLongClickListener) {
+        public ViewHolder(View itemView, TaskListItemListener listener) {
             super(itemView);
+
             title = (TextView) itemView.findViewById(R.id.title);
-            itemView.setOnLongClickListener(onLongClickListener);
+            checkbox = (CheckBox) itemView.findViewById(R.id.checkbox);
+
+            itemView.setOnLongClickListener(listener.getOnLongClickListener());
+            checkbox.setOnCheckedChangeListener(listener.getOnCheckChangeListener());
         }
 
         public void bind(TaskViewModel taskViewModel) {
             itemView.setTag(taskViewModel);
+
             title.setText(taskViewModel.title);
+            checkbox.setChecked(taskViewModel.checked);
+        }
+
+        public interface TaskListItemListener {
+            View.OnLongClickListener getOnLongClickListener();
+            CompoundButton.OnCheckedChangeListener getOnCheckChangeListener();
         }
     }
 }

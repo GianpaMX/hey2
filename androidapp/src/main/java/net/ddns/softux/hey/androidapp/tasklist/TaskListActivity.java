@@ -13,6 +13,7 @@ import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.androidapp.tasklist.di.TaskListActivityModule;
 import net.ddns.softux.hey.androidapp.tasklist.di.TaskListComponent;
+import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListUseCase;
 
 import javax.inject.Inject;
@@ -27,6 +28,9 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
 
     @Inject
     public TaskListUseCase taskListUseCase;
+
+    @Inject
+    public SaveTaskUseCase saveTaskUseCase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,5 +75,10 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
         startActivity(intent);
 
         return true;
+    }
+
+    @Override
+    public void onCheckedTask(TaskViewModel taskViewModel) {
+        saveTaskUseCase.check(taskViewModel.toTask(), null);
     }
 }

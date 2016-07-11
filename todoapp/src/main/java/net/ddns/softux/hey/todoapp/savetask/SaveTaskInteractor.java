@@ -19,4 +19,9 @@ public class SaveTaskInteractor implements SaveTaskUseCase {
             }
         });
     }
+
+    @Override
+    public void check(Task task, OnSaveTaskListener onSaveTaskListener) {
+
+    }
 }
