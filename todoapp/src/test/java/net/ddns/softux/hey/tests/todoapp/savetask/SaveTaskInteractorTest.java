@@ -8,16 +8,16 @@ import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 import net.ddns.softux.hey.todoapp.task.Task;
 import net.ddns.softux.hey.todoapp.task.TaskEntitity;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static net.ddns.softux.tests.utils.fields.HasFieldWithValue.hasField;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -28,6 +28,7 @@ public class SaveTaskInteractorTest {
 
     @Mock
     private SaveTaskGateway mockSaveTaskGateway;
+
     private SaveTaskUseCase saveTaskUseCase;
 
     @Before
@@ -60,6 +61,6 @@ public class SaveTaskInteractorTest {
     public void checkTask() {
         saveTaskUseCase.check(new Task(), mock(OnSaveTaskListener.class));
 
-        verify(mockSaveTaskGateway).save(Mockito.argThat(Matchers.<Task>hasProperty("checked", equalTo(true))), any(SaveTaskGatewayCallback.class));
+        verify(mockSaveTaskGateway).save((Task) argThat(hasField("checked", equalTo(true))), any(SaveTaskGatewayCallback.class));
     }
 }

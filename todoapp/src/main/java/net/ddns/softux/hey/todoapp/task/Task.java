@@ -18,12 +18,4 @@ public class Task {
         this.title = title;
         this.description = description;
     }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
 }
