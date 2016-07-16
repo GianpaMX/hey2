@@ -7,6 +7,7 @@ public class Task {
     public String key;
     public String title;
     public String description;
+    public boolean checked;
 
     public Task() {
         this(null, null, null);
@@ -16,5 +17,13 @@ public class Task {
         this.key = key;
         this.title = title;
         this.description = description;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }
