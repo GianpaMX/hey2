@@ -26,7 +26,8 @@ public class SaveTaskInteractor implements SaveTaskUseCase {
         saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
             @Override
             public void onSuccess(TaskEntitity savedTask) {
-                onSaveTaskListener.onSavedTask(savedTask.toModel());
+                if (onSaveTaskListener != null)
+                    onSaveTaskListener.onSavedTask(savedTask.toModel());
             }
         });
     }
@@ -37,7 +38,8 @@ public class SaveTaskInteractor implements SaveTaskUseCase {
         saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
             @Override
             public void onSuccess(TaskEntitity savedTask) {
-                onSaveTaskListener.onSavedTask(savedTask.toModel());
+                if (onSaveTaskListener != null)
+                    onSaveTaskListener.onSavedTask(savedTask.toModel());
             }
         });
     }

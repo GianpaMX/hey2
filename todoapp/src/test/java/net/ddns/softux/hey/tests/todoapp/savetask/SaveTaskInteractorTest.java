@@ -60,7 +60,7 @@ public class SaveTaskInteractorTest {
 
     @Test
     public void checkTask() {
-        saveTaskUseCase.check(new Task(), mockOnSaveTaskListener);
+        saveTaskUseCase.check(new Task(), null);
 
         verify(mockSaveTaskGateway).save((Task) argThat(hasField("checked", equalTo(true))), any(SaveTaskGatewayCallback.class));
     }
@@ -70,7 +70,7 @@ public class SaveTaskInteractorTest {
         Task task = new Task();
         task.checked = true;
 
-        saveTaskUseCase.uncheck(task, mockOnSaveTaskListener);
+        saveTaskUseCase.uncheck(task, null);
 
         verify(mockSaveTaskGateway).save((Task) argThat(hasField("checked", equalTo(false))), any(SaveTaskGatewayCallback.class));
     }
