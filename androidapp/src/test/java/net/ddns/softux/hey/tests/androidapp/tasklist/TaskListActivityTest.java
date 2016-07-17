@@ -79,4 +79,11 @@ public class TaskListActivityTest {
 
         verify(saveTaskUseCase).check(any(Task.class), any(OnSaveTaskListener.class));
     }
+
+    @Test
+    public void onUncheckedTask() {
+        taskListActivity.onUncheckedTask(mock(TaskViewModel.class));
+
+        verify(saveTaskUseCase).uncheck(any(Task.class), any(OnSaveTaskListener.class));
+    }
 }
