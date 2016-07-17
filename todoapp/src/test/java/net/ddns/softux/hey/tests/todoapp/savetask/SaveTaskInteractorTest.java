@@ -27,9 +27,12 @@ import static org.mockito.Mockito.verify;
 public class SaveTaskInteractorTest {
 
     @Mock
-    private SaveTaskGateway mockSaveTaskGateway;
+    public OnSaveTaskListener mockOnSaveTaskListener;
 
-    private SaveTaskUseCase saveTaskUseCase;
+    @Mock
+    public SaveTaskGateway mockSaveTaskGateway;
+
+    public SaveTaskUseCase saveTaskUseCase;
 
     @Before
     public void setUp() {
@@ -39,15 +42,13 @@ public class SaveTaskInteractorTest {
 
     @Test
     public void saveTaskGatewayisCalled() {
-        saveTaskUseCase.save(mock(Task.class), mock(OnSaveTaskListener.class));
+        saveTaskUseCase.save(mock(Task.class), mockOnSaveTaskListener);
 
         verify(mockSaveTaskGateway).save(any(Task.class), any(SaveTaskGatewayCallback.class));
     }
 
     @Test
     public void saveTaskDeliverResult() {
-        OnSaveTaskListener mockOnSaveTaskListener = mock(OnSaveTaskListener.class);
-
         saveTaskUseCase.save(mock(Task.class), mockOnSaveTaskListener);
 
         ArgumentCaptor<SaveTaskGatewayCallback> saveTaskGatewayCallbackArgumentCaptor = ArgumentCaptor.forClass(SaveTaskGatewayCallback.class);
@@ -59,7 +60,7 @@ public class SaveTaskInteractorTest {
 
     @Test
     public void checkTask() {
-        saveTaskUseCase.check(new Task(), mock(OnSaveTaskListener.class));
+        saveTaskUseCase.check(new Task(), mockOnSaveTaskListener);
 
         verify(mockSaveTaskGateway).save((Task) argThat(hasField("checked", equalTo(true))), any(SaveTaskGatewayCallback.class));
     }

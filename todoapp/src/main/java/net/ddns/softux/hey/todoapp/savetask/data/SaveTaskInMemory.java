@@ -32,7 +32,9 @@ public class SaveTaskInMemory extends TaskListInMemory implements SaveTaskGatewa
             taskEntitity = tasks.get(task.key);
             taskEntitity.copyFrom(task);
         } else {
-            taskEntitity = new TaskEntitity(String.valueOf(++counter), task.title, task.description);
+            taskEntitity = new TaskEntitity(task);
+            taskEntitity.key = String.valueOf(++counter);
+
             tasks.put(taskEntitity.key, taskEntitity);
             if (onTaskListGatewayListener != null) {
                 onTaskListGatewayListener.onTaskAdded(taskEntitity);

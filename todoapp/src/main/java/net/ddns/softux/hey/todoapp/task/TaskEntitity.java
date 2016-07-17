@@ -8,6 +8,7 @@ public class TaskEntitity {
     public String key;
     public String title;
     public String description;
+    public boolean checked;
 
     public TaskEntitity() {
 
@@ -19,10 +20,15 @@ public class TaskEntitity {
         this.description = description;
     }
 
+    public TaskEntitity(Task task) {
+        copyFrom(task);
+    }
+
     public void copyFrom(Task task) {
         this.key = task.key;
         this.title = task.title;
         this.description = task.description;
+        this.checked = task.checked;
     }
 
     public Task toModel() {
