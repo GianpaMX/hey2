@@ -81,4 +81,9 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
     public void onCheckedTask(TaskViewModel taskViewModel) {
         saveTaskUseCase.check(taskViewModel.toTask(), null);
     }
+
+    @Override
+    public void onUncheckedTask(TaskViewModel taskViewModel) {
+        saveTaskUseCase.uncheck(taskViewModel.toTask(), null);
+    }
 }

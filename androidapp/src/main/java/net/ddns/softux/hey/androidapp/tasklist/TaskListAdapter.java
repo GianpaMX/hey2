@@ -92,6 +92,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
                     View view = (View) compoundButton.getParent();
                     if (checked) {
                         TaskListAdapter.this.taskListFragmentContainerListener.onCheckedTask((TaskViewModel) view.getTag());
+                    } else {
+                        TaskListAdapter.this.taskListFragmentContainerListener.onUncheckedTask((TaskViewModel) view.getTag());
                     }
                 }
             };

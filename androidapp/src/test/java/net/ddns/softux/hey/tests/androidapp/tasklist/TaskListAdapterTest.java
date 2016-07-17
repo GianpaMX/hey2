@@ -118,4 +118,14 @@ public class TaskListAdapterTest {
 
         verify(mockFragmentContainerListener).onCheckedTask(any(TaskViewModel.class));
     }
+
+    @Test
+    public void onUnCheckedListener() {
+        CompoundButton mockCompoundButton = mock(CompoundButton.class);
+        when(mockCompoundButton.getParent()).thenReturn((ViewParent) new FrameLayout(RuntimeEnvironment.application));
+
+        taskListAdapter.getOnCheckedChangeListener().onCheckedChanged(mockCompoundButton, false);
+
+        verify(mockFragmentContainerListener).onUncheckedTask(any(TaskViewModel.class));
+    }
 }
