@@ -1,5 +1,6 @@
 package net.ddns.softux.hey.androidapp.tasklist;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,10 @@ import java.util.List;
  * Created by juan on 2/07/16.
  */
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
+    private View.OnLongClickListener onLongClickListener;
     private List<TaskViewModel> taskViewModelList;
     private TaskListFragment.TaskListFragmentContainerListener taskListFragmentContainerListener;
+    private CompoundButton.OnCheckedChangeListener onCheckedChangeListener = getOnCheckedChangeListener();
 
     public TaskListAdapter(TaskListFragment.TaskListFragmentContainerListener taskListFragmentContainerListener) {
         taskViewModelList = new ArrayList<>();
@@ -31,12 +34,12 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_item, parent, false), new ViewHolder.TaskListItemListener() {
             @Override
             public View.OnLongClickListener getOnLongClickListener() {
-                return onLongClickListener;
+                return TaskListAdapter.this.getOnLongClickListener();
             }
 
             @Override
             public CompoundButton.OnCheckedChangeListener getOnCheckChangeListener() {
-                return onCheckedChangeListener;
+                return TaskListAdapter.this.getOnCheckedChangeListener();
             }
         });
     }
@@ -67,21 +70,35 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         notifyItemInserted(position);
     }
 
-    public final View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View view) {
-            return TaskListAdapter.this.taskListFragmentContainerListener.onLongClickTask((TaskViewModel) view.getTag());
+    @NonNull
+    public View.OnLongClickListener getOnLongClickListener() {
+        if (onLongClickListener == null) {
+            onLongClickListener = new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    return TaskListAdapter.this.taskListFragmentContainerListener.onLongClickTask((TaskViewModel) view.getTag());
+                }
+            };
         }
-    };
-    public final CompoundButton.OnCheckedChangeListener onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-            View view = (View) compoundButton.getParent();
-            if(checked) {
-                TaskListAdapter.this.taskListFragmentContainerListener.onCheckedTask((TaskViewModel) view.getTag());
-            }
+        return onLongClickListener;
+    }
+
+    @NonNull
+    public CompoundButton.OnCheckedChangeListener getOnCheckedChangeListener() {
+        if (onCheckedChangeListener == null) {
+            onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                    View view = (View) compoundButton.getParent();
+                    if (checked) {
+                        TaskListAdapter.this.taskListFragmentContainerListener.onCheckedTask((TaskViewModel) view.getTag());
+                    }
+                }
+            };
         }
-    };
+
+        return onCheckedChangeListener;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView title;
@@ -106,6 +123,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
         public interface TaskListItemListener {
             View.OnLongClickListener getOnLongClickListener();
+
             CompoundButton.OnCheckedChangeListener getOnCheckChangeListener();
         }
     }

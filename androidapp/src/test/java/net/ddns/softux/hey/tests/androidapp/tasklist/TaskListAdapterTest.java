@@ -3,7 +3,9 @@ package net.ddns.softux.hey.tests.androidapp.tasklist;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -105,5 +107,15 @@ public class TaskListAdapterTest {
         viewHolder.itemView.performLongClick();
 
         verify(mockFragmentContainerListener).onLongClickTask(expectedTaskViewModel);
+    }
+
+    @Test
+    public void onCheckedListener() {
+        CompoundButton mockCompoundButton = mock(CompoundButton.class);
+        when(mockCompoundButton.getParent()).thenReturn((ViewParent) new FrameLayout(RuntimeEnvironment.application));
+
+        taskListAdapter.getOnCheckedChangeListener().onCheckedChanged(mockCompoundButton, true);
+
+        verify(mockFragmentContainerListener).onCheckedTask(any(TaskViewModel.class));
     }
 }
