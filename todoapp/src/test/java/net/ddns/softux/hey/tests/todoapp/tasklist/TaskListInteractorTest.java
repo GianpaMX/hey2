@@ -6,8 +6,10 @@ import net.ddns.softux.hey.todoapp.tasklist.OnTaskListLoadListener;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListGateway;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListInteractor;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +17,31 @@ import java.util.List;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
  * Created by juan on 3/07/16.
  */
 public class TaskListInteractorTest {
+
+    @Mock
+    public TaskListGateway mockTaskListGateway;
+
+    @Mock
+    public OnTaskListLoadListener mockOnTaskListLoadListener;
+
+    public TaskListInteractor taskListInteractor;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+
+        taskListInteractor = new TaskListInteractor(mockTaskListGateway);
+        taskListInteractor.start(mockOnTaskListLoadListener);
+    }
+
     @Test
     public void start() throws Exception {
-        TaskListGateway mockTaskListGateway = mock(TaskListGateway.class);
-
-        TaskListInteractor taskListInteractor = new TaskListInteractor(mockTaskListGateway);
-        taskListInteractor.start(mock(OnTaskListLoadListener.class));
-
         verify(mockTaskListGateway).loadTaskList();
     }
 
@@ -37,30 +50,13 @@ public class TaskListInteractorTest {
         ArrayList<TaskEntitity> expectedTaskEntitities = new ArrayList<>();
         expectedTaskEntitities.add(new TaskEntitity());
 
-        TaskListGateway mockTaskListGateway = mock(TaskListGateway.class);
-        OnTaskListLoadListener mockOnTaskListLoadListener = mock(OnTaskListLoadListener.class);
-
-        ArgumentCaptor<TaskListGateway.OnTaskListGatewayListener> argumentCaptor = ArgumentCaptor.forClass(TaskListGateway.OnTaskListGatewayListener.class);
-
-        TaskListInteractor taskListInteractor = new TaskListInteractor(mockTaskListGateway);
-        taskListInteractor.start(mockOnTaskListLoadListener);
-
-        verify(mockTaskListGateway).setOnTaskListGatewayListener(argumentCaptor.capture());
-        verify(mockTaskListGateway).loadTaskList();
-
-        argumentCaptor.getValue().onTaskListLoad(expectedTaskEntitities);
+        taskListInteractor.onTaskListLoad(expectedTaskEntitities);
 
         verify(mockOnTaskListLoadListener).onTaskListLoad((List<Task>) argThat(hasSize(1)));
     }
 
     @Test
     public void onTaskAdded() {
-        TaskListGateway mockTaskListGateway = mock(TaskListGateway.class);
-        OnTaskListLoadListener mockOnTaskListLoadListener = mock(OnTaskListLoadListener.class);
-
-        TaskListInteractor taskListInteractor = new TaskListInteractor(mockTaskListGateway);
-        taskListInteractor.start(mockOnTaskListLoadListener);
-
         taskListInteractor.onTaskAdded(new TaskEntitity());
 
         verify(mockOnTaskListLoadListener).onTaskAdded(any(Task.class));
