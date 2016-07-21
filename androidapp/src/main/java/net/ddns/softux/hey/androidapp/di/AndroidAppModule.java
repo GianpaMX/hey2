@@ -9,6 +9,7 @@ import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListGateway;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListInteractor;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListUseCase;
+import net.ddns.softux.hey.todoapp.tasklist.data.TaskListRepository;
 
 import javax.inject.Singleton;
 
@@ -42,7 +43,7 @@ public class AndroidAppModule {
     @Singleton
     @Provides
     public TaskListGateway provideTaskListGateway(SaveTaskGateway saveTaskGateway) {
-        return saveTaskGateway;
+        return new TaskListRepository(saveTaskGateway);
     }
 
     @Provides
