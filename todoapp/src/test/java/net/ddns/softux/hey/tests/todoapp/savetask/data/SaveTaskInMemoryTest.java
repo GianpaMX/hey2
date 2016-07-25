@@ -1,10 +1,10 @@
 package net.ddns.softux.hey.tests.todoapp.savetask.data;
 
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskGatewayCallback;
-import net.ddns.softux.hey.todoapp.savetask.data.SaveTaskInMemory;
 import net.ddns.softux.hey.todoapp.task.Task;
 import net.ddns.softux.hey.todoapp.task.TaskEntitity;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListGateway;
+import net.ddns.softux.hey.todoapp.tasklist.data.TaskListInMemory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,13 +33,13 @@ public class SaveTaskInMemoryTest {
     @Mock
     public SaveTaskGatewayCallback mockSaveTaskGatewayCallback;
 
-    public SaveTaskInMemory saveTaskInMemory;
+    public TaskListInMemory saveTaskInMemory;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        saveTaskInMemory = new SaveTaskInMemory();
+        saveTaskInMemory = new TaskListInMemory();
     }
 
     @Test
@@ -61,7 +61,7 @@ public class SaveTaskInMemoryTest {
         Map<String, TaskEntitity> mockMap = mock(Map.class);
         when(mockMap.containsKey(existingKey)).thenReturn(true);
         when(mockMap.get(existingKey)).thenReturn(existingTask);
-        SaveTaskInMemory saveTaskInMemory = new SaveTaskInMemory(mockMap, 1);
+        TaskListInMemory saveTaskInMemory = new TaskListInMemory(mockMap, 1);
 
         saveTaskInMemory.save(existingTask.toModel(), mockSaveTaskGatewayCallback);
 
