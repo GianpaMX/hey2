@@ -75,7 +75,7 @@ public class SaveTaskInMemoryTest {
 
         saveTaskInMemory.save(new Task(), mock(SaveTaskGatewayCallback.class));
 
-        verify(mockOnTaskListGatewayListener).onTaskAdded(any(TaskEntitity.class));
+        verify(mockOnTaskListGatewayListener).onTaskAdded(any(TaskEntitity.class), any(TaskListGateway.class));
     }
 
     @Test

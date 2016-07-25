@@ -50,14 +50,14 @@ public class TaskListInteractorTest {
         ArrayList<TaskEntitity> expectedTaskEntitities = new ArrayList<>();
         expectedTaskEntitities.add(new TaskEntitity());
 
-        taskListInteractor.onTaskListLoad(expectedTaskEntitities);
+        taskListInteractor.onTaskListLoad(expectedTaskEntitities, any(TaskListGateway.class));
 
         verify(mockOnTaskListLoadListener).onTaskListLoad((List<Task>) argThat(hasSize(1)));
     }
 
     @Test
     public void onTaskAdded() {
-        taskListInteractor.onTaskAdded(new TaskEntitity());
+        taskListInteractor.onTaskAdded(new TaskEntitity(), mockTaskListGateway);
 
         verify(mockOnTaskListLoadListener).onTaskAdded(any(Task.class));
     }

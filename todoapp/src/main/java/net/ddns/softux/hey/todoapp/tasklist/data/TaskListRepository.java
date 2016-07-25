@@ -32,12 +32,29 @@ public class TaskListRepository implements TaskListGateway, TaskListGateway.OnTa
     }
 
     @Override
-    public void onTaskListLoad(Collection<TaskEntitity> taskEntitities) {
-        onTaskListGatewayListener.onTaskListLoad(taskEntitities);
+    public void saveTaskList() {
+        for(TaskListGateway l : gateways) {
+            l.saveTaskList();
+        }
     }
 
     @Override
-    public void onTaskAdded(TaskEntitity taskEntitity) {
-        onTaskListGatewayListener.onTaskAdded(taskEntitity);
+    public void onTaskListLoad(Collection<TaskEntitity> taskEntitities, TaskListGateway taskListGateway) {
+        onTaskListGatewayListener.onTaskListLoad(taskEntitities, taskListGateway);
+    }
+
+    @Override
+    public void onTaskListSaved(TaskListGateway taskListGateway) {
+        onTaskListGatewayListener.onTaskListSaved(taskListGateway);
+    }
+
+    @Override
+    public void onTaskAdded(TaskEntitity taskEntitity, TaskListGateway taskListGateway) {
+        onTaskListGatewayListener.onTaskAdded(taskEntitity, taskListGateway);
+    }
+
+    @Override
+    public void onTaskListSaveError(Exception e, TaskListGateway taskListGateway) {
+        onTaskListGatewayListener.onTaskListSaveError(e, taskListGateway);
     }
 }

@@ -29,7 +29,12 @@ public class TaskListInMemory implements TaskListGateway {
 
     @Override
     public void loadTaskList() {
-        onTaskListGatewayListener.onTaskListLoad(tasks.values());
+        onTaskListGatewayListener.onTaskListLoad(tasks.values(), this);
+    }
+
+    @Override
+    public void saveTaskList() {
+
     }
 
     public int size() {

@@ -27,7 +27,7 @@ public class TaskListInteractor implements TaskListUseCase, TaskListGateway.OnTa
     }
 
     @Override
-    public void onTaskListLoad(Collection<TaskEntitity> taskEntitities) {
+    public void onTaskListLoad(Collection<TaskEntitity> taskEntitities, TaskListGateway taskListGateway) {
         List<Task> taskList = new ArrayList<>();
         for(TaskEntitity entitity : taskEntitities) {
             taskList.add(entitity.toModel());
@@ -36,7 +36,17 @@ public class TaskListInteractor implements TaskListUseCase, TaskListGateway.OnTa
     }
 
     @Override
-    public void onTaskAdded(TaskEntitity taskEntitity) {
+    public void onTaskListSaved(TaskListGateway taskListGateway) {
+
+    }
+
+    @Override
+    public void onTaskAdded(TaskEntitity taskEntitity, TaskListGateway taskListGateway) {
         onTaskListLoadListener.onTaskAdded(taskEntitity.toModel());
+    }
+
+    @Override
+    public void onTaskListSaveError(Exception e, TaskListGateway taskListGateway) {
+
     }
 }

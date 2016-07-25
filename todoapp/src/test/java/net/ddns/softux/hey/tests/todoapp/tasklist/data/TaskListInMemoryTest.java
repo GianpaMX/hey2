@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
 
@@ -41,7 +42,7 @@ public class TaskListInMemoryTest {
     public void loadEmptyTaskList() throws Exception {
         taskListInMemory.loadTaskList();
 
-        verify(mockOnTaskListGatewayListener).onTaskListLoad((Collection<TaskEntitity>) argThat(hasSize(0)));
+        verify(mockOnTaskListGatewayListener).onTaskListLoad((Collection<TaskEntitity>) argThat(hasSize(0)), any(TaskListGateway.class));
     }
 
     @Test
@@ -51,6 +52,6 @@ public class TaskListInMemoryTest {
 
         taskListInMemory.loadTaskList();
 
-        verify(mockOnTaskListGatewayListener).onTaskListLoad((Collection<TaskEntitity>) argThat(hasSize(1)));
+        verify(mockOnTaskListGatewayListener).onTaskListLoad((Collection<TaskEntitity>) argThat(hasSize(1)), any(TaskListGateway.class));
     }
 }
