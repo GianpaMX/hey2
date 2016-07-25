@@ -57,4 +57,9 @@ public class TaskListRepository implements TaskListGateway, TaskListGateway.OnTa
     public void onTaskListSaveError(Exception e, TaskListGateway taskListGateway) {
         onTaskListGatewayListener.onTaskListSaveError(e, taskListGateway);
     }
+
+    @Override
+    public void onTaskListLoadError(Exception e, TaskListGateway taskListGateway) {
+        onTaskListGatewayListener.onTaskListLoadError(e, taskListGateway);
+    }
 }

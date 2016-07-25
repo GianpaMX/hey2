@@ -48,7 +48,7 @@ public class TaskListInFileTest {
     }
 
     @Test
-    public void loadTaskList() {
+    public void loadTaskList() throws IOException, ClassNotFoundException {
         when(mockObjectFile.readObject()).thenReturn(new HashMap<String, TaskEntitity>());
 
         taskListInFile.loadTaskList();

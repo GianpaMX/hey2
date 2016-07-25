@@ -49,4 +49,9 @@ public class TaskListInteractor implements TaskListUseCase, TaskListGateway.OnTa
     public void onTaskListSaveError(Exception e, TaskListGateway taskListGateway) {
 
     }
+
+    @Override
+    public void onTaskListLoadError(Exception e, TaskListGateway taskListGateway) {
+
+    }
 }

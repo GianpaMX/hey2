@@ -18,7 +18,11 @@ public class TaskListInFile extends TaskListInMemory {
 
     @Override
     public void loadTaskList() {
-        tasks = (Map<String, TaskEntitity>) objectFile.readObject();
+        try {
+            tasks = (Map<String, TaskEntitity>) objectFile.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            onTaskListGatewayListener.onTaskListLoadError(e, this);
+        }
         super.loadTaskList();
     }
 

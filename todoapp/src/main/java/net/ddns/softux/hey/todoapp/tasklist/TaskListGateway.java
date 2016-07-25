@@ -18,5 +18,6 @@ public interface TaskListGateway {
         void onTaskAdded(TaskEntitity taskEntitity, TaskListGateway taskListGateway);
 
         void onTaskListSaveError(Exception e, TaskListGateway taskListGateway);
+        void onTaskListLoadError(Exception e, TaskListGateway taskListGateway);
     }
 }
