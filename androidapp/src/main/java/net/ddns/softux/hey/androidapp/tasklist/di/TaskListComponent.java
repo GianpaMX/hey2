@@ -5,9 +5,6 @@ import net.ddns.softux.hey.androidapp.tasklist.TaskListActivity;
 
 import dagger.Subcomponent;
 
-/**
- * Created by juan on 3/07/16.
- */
 @ActivityScope
 @Subcomponent(modules = {TaskListActivityModule.class})
 public interface TaskListComponent {

@@ -12,9 +12,6 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-/**
- * Created by juan on 24/07/16.
- */
 public class ObjectFile {
     private final File file;
 

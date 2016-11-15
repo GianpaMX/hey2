@@ -1,9 +1,5 @@
 package net.ddns.softux.hey.todoapp.task;
 
-/**
- * Created by juan on 30/06/16.
- */
-
 public class TaskEntitity {
     public String key;
     public String title;

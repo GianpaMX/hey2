@@ -27,9 +27,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by juan on 30/06/16.
- */
 public class AddEditTaskActivityTest extends ActivityTest {
     @Mock
     public SaveTaskUseCase saveTaskUseCase;

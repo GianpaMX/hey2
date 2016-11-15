@@ -18,9 +18,6 @@ import net.ddns.softux.hey.todoapp.tasklist.TaskListUseCase;
 
 import javax.inject.Inject;
 
-/**
- * Created by juan on 2/07/16.
- */
 public class TaskListActivity extends BaseActivity implements TaskListFragment.TaskListFragmentContainerListener {
 
     @Inject

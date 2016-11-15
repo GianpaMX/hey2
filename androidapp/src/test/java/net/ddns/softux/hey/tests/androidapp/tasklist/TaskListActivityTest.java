@@ -31,9 +31,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.robolectric.Shadows.shadowOf;
 
-/**
- * Created by juan on 2/07/16.
- */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
 public class TaskListActivityTest {

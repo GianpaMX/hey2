@@ -16,10 +16,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by juan on 30/06/16.
- */
-
 @Module
 public class AndroidAppModule {
     protected Context context;

@@ -7,10 +7,6 @@ import net.ddns.softux.hey.androidapp.tasklist.TaskListPresenter;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by juan on 3/07/16.
- */
-
 @Module
 public class TaskListActivityModule {
     private TaskListActivity taskListActivity;

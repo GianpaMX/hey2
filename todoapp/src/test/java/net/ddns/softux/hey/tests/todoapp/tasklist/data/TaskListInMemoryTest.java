@@ -18,9 +18,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
 
-/**
- * Created by juan on 3/07/16.
- */
 public class TaskListInMemoryTest {
 
     @Mock

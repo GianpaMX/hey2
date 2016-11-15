@@ -15,9 +15,6 @@ import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by juan on 2/07/16.
- */
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
     private View.OnLongClickListener onLongClickListener;
     private List<TaskViewModel> taskViewModelList;

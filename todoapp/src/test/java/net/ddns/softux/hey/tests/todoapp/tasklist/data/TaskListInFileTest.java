@@ -20,9 +20,6 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by juan on 3/07/16.
- */
 public class TaskListInFileTest {
     @Mock
     private ObjectFile mockObjectFile;

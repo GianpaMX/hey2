@@ -6,9 +6,6 @@ import net.ddns.softux.hey.todoapp.utils.ObjectFile;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * Created by juan on 24/07/16.
- */
 public class TaskListInFile extends TaskListInMemory {
     private final ObjectFile objectFile;
 

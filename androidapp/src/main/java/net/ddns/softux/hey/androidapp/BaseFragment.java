@@ -3,10 +3,6 @@ package net.ddns.softux.hey.androidapp;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-/**
- * Created by juan on 3/07/16.
- */
-
 public abstract class BaseFragment<T> extends Fragment {
     protected T containerListener;
 

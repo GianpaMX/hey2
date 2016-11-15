@@ -15,9 +15,6 @@ import org.robolectric.annotation.Config;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-/**
- * Created by juan on 2/07/16.
- */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.KITKAT)
 public class TaskViewModelTest {

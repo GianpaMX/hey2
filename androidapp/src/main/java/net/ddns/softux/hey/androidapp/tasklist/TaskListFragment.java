@@ -15,10 +15,6 @@ import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 
 import java.util.List;
 
-/**
- * Created by juan on 2/07/16.
- */
-
 public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFragmentContainerListener> implements TaskListView {
     private TaskListAdapter taskListAdapter;
 
@@ -67,7 +63,9 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
 
     public interface TaskListFragmentContainerListener {
         boolean onLongClickTask(TaskViewModel taskViewModel);
+
         void onCheckedTask(TaskViewModel taskViewModel);
+
         void onUncheckedTask(TaskViewModel taskViewModel);
     }
 }

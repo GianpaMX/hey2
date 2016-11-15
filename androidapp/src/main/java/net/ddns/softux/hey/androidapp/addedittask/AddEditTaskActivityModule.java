@@ -5,10 +5,6 @@ import net.ddns.softux.hey.androidapp.di.ActivityScope;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by juan on 30/06/16.
- */
-
 @Module
 public class AddEditTaskActivityModule {
     private AddEditTaskActivity addEditTaskActivity;

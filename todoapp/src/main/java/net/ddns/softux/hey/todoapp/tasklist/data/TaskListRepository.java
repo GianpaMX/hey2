@@ -5,16 +5,13 @@ import net.ddns.softux.hey.todoapp.tasklist.TaskListGateway;
 
 import java.util.Collection;
 
-/**
- * Created by juan on 20/07/16.
- */
 public class TaskListRepository implements TaskListGateway, TaskListGateway.OnTaskListGatewayListener {
     private final TaskListGateway[] gateways;
     private OnTaskListGatewayListener onTaskListGatewayListener;
 
     public TaskListRepository(TaskListGateway... gateways) {
         this.gateways = gateways;
-        for(TaskListGateway l : gateways) {
+        for (TaskListGateway l : gateways) {
             l.setOnTaskListGatewayListener(this);
         }
     }
@@ -26,14 +23,14 @@ public class TaskListRepository implements TaskListGateway, TaskListGateway.OnTa
 
     @Override
     public void loadTaskList() {
-        for(TaskListGateway l : gateways) {
+        for (TaskListGateway l : gateways) {
             l.loadTaskList();
         }
     }
 
     @Override
     public void saveTaskList() {
-        for(TaskListGateway l : gateways) {
+        for (TaskListGateway l : gateways) {
             l.saveTaskList();
         }
     }

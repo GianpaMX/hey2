@@ -21,9 +21,6 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-/**
- * Created by juan on 30/06/16.
- */
 public class SaveTaskInteractorTest {
 
     @Mock

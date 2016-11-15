@@ -9,10 +9,6 @@ import net.ddns.softux.hey.todoapp.tasklist.TaskListGateway;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by juan on 3/07/16.
- */
-
 public class TaskListInMemory implements TaskListGateway, SaveTaskGateway {
     protected OnTaskListGatewayListener onTaskListGatewayListener;
     protected Map<String, TaskEntitity> tasks;

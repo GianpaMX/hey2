@@ -6,11 +6,6 @@ import net.ddns.softux.hey.androidapp.di.AndroidAppComponent;
 import net.ddns.softux.hey.androidapp.di.AndroidAppModule;
 import net.ddns.softux.hey.androidapp.di.DaggerAndroidAppComponent;
 
-
-/**
- * Created by juan on 30/06/16.
- */
-
 public class AndroidApp extends Application {
     private AndroidAppComponent androidAppComponent;
 

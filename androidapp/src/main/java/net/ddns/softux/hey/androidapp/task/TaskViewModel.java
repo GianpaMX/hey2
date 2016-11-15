@@ -5,9 +5,6 @@ import android.os.Parcelable;
 
 import net.ddns.softux.hey.todoapp.task.Task;
 
-/**
- * Created by juan on 30/06/16.
- */
 public class TaskViewModel implements Parcelable {
     public static final Creator<TaskViewModel> CREATOR = new Creator<TaskViewModel>() {
         @Override

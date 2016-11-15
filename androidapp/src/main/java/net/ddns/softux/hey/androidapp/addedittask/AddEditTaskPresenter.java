@@ -4,10 +4,6 @@ import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.todoapp.savetask.OnSaveTaskListener;
 import net.ddns.softux.hey.todoapp.task.Task;
 
-/**
- * Created by juan on 30/06/16.
- */
-
 public class AddEditTaskPresenter implements OnSaveTaskListener {
 
     protected AddEditTaskView view;

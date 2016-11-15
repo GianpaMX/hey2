@@ -12,9 +12,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-/**
- * Created by juan on 2/07/16.
- */
 public class AddEditTaskPresenterTest {
     @Test
     public void onSavedTask() throws Exception {

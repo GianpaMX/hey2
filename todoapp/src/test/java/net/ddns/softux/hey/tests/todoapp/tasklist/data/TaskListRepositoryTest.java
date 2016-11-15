@@ -19,10 +19,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-/**
- * Created by juan on 20/07/16.
- */
-
 public class TaskListRepositoryTest {
     @Mock
     public TaskListGateway.OnTaskListGatewayListener mockOnTaskListGatewayListener;
@@ -36,7 +32,7 @@ public class TaskListRepositoryTest {
         MockitoAnnotations.initMocks(this);
 
         taskListGateway = new TaskListGateway[3];
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             taskListGateway[i] = mock(TaskListGateway.class);
         }
 
@@ -64,7 +60,7 @@ public class TaskListRepositoryTest {
 
     @Test
     public void onTaskListLoad() {
-        for(int i = 0 ; i< 3; i ++) {
+        for (int i = 0; i < 3; i++) {
             taskListRepository.onTaskListLoad(new ArrayList<TaskEntitity>(), taskListGateway[i]);
         }
 
@@ -73,7 +69,7 @@ public class TaskListRepositoryTest {
 
     @Test
     public void onTaskAdded() {
-        for(int i = 0 ; i< 3; i ++) {
+        for (int i = 0; i < 3; i++) {
             taskListRepository.onTaskAdded(new TaskEntitity(), taskListGateway[i]);
         }
 
