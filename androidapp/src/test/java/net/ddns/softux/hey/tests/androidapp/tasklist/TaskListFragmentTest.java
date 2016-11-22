@@ -1,7 +1,6 @@
 package net.ddns.softux.hey.tests.androidapp.tasklist;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 import net.ddns.softux.hey.BuildConfig;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
@@ -26,34 +25,25 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
 public class TaskListFragmentTest {
 
-    private TestableTaskListFragment taskListFragment;
+    private TaskListFragment taskListFragment;
 
     @Before
     public void setUp() {
-        taskListFragment = new TestableTaskListFragment();
+        taskListFragment = new TaskListFragment();
+        taskListFragment.taskListAdapter = mock(TaskListAdapter.class);
         SupportFragmentTestUtil.startFragment(taskListFragment);
     }
 
     @Test
     public void onTaskListLoad() {
         taskListFragment.loadTaskList(new ArrayList<TaskViewModel>());
-        verify(taskListFragment.mockTaskListAdapter).swapTaskViewModelList(any(List.class));
+        verify(taskListFragment.taskListAdapter).swapTaskViewModelList(any(List.class));
     }
 
     @Test
     public void addTask() {
         TaskViewModel expectedTaskViewModel = new TaskViewModel();
         taskListFragment.addTask(expectedTaskViewModel);
-        verify(taskListFragment.mockTaskListAdapter).addTaskViewModel(expectedTaskViewModel);
-    }
-
-    public static class TestableTaskListFragment extends TaskListFragment {
-        public TaskListAdapter mockTaskListAdapter = mock(TaskListAdapter.class);
-
-        @NonNull
-        @Override
-        protected TaskListAdapter newTaskListAdapter(TaskListFragmentContainerListener taskListFragmentContainerListener) {
-            return mockTaskListAdapter;
-        }
+        verify(taskListFragment.taskListAdapter).addTaskViewModel(expectedTaskViewModel);
     }
 }

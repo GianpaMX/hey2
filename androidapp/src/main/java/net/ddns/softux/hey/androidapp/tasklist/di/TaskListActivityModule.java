@@ -2,6 +2,8 @@ package net.ddns.softux.hey.androidapp.tasklist.di;
 
 import net.ddns.softux.hey.androidapp.di.ActivityScope;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListActivity;
+import net.ddns.softux.hey.androidapp.tasklist.TaskListAdapter;
+import net.ddns.softux.hey.androidapp.tasklist.TaskListFragment;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListPresenter;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 import net.ddns.softux.hey.todoapp.tasklist.TaskListUseCase;
@@ -29,4 +31,15 @@ public class TaskListActivityModule {
         return new TaskListPresenter(taskListUseCase, saveTaskUseCase);
     }
 
+    @Provides
+    @ActivityScope
+    public TaskListFragment.TaskListFragmentContainerListener provideTaskListFragmentContainerListener() {
+        return taskListActivity;
+    }
+
+    @Provides
+    @ActivityScope
+    public TaskListAdapter provideTaskListAdapter(TaskListFragment.TaskListFragmentContainerListener taskListFragmentContainerListener) {
+        return new TaskListAdapter(taskListFragmentContainerListener);
+    }
 }

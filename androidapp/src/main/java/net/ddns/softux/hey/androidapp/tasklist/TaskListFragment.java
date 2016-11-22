@@ -1,8 +1,8 @@
 package net.ddns.softux.hey.androidapp.tasklist;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.ddns.softux.hey.R;
-import net.ddns.softux.hey.androidapp.BaseFragment;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 
 import java.util.List;
 
-public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFragmentContainerListener> implements TaskListView {
-    private TaskListAdapter taskListAdapter;
+import javax.inject.Inject;
+
+public class TaskListFragment extends Fragment implements TaskListView {
+
+    @Inject
+    public TaskListAdapter taskListAdapter;
 
     public static TaskListFragment newInstance() {
         return new TaskListFragment();
@@ -25,7 +28,13 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        taskListAdapter = newTaskListAdapter(containerListener);
+
+        inject(this);
+    }
+
+    private void inject(TaskListFragment taskListFragment) {
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        activity.getTaskListActivityModule().inject(taskListFragment);
     }
 
     @Nullable
@@ -41,11 +50,6 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
         return view;
     }
 
-    @NonNull
-    protected TaskListAdapter newTaskListAdapter(TaskListFragmentContainerListener taskListFragmentContainerListener) {
-        return new TaskListAdapter(taskListFragmentContainerListener);
-    }
-
     @Override
     public void loadTaskList(List<TaskViewModel> taskViewModelList) {
         taskListAdapter.swapTaskViewModelList(taskViewModelList);
@@ -54,11 +58,6 @@ public class TaskListFragment extends BaseFragment<TaskListFragment.TaskListFrag
     @Override
     public void addTask(TaskViewModel taskViewModel) {
         taskListAdapter.addTaskViewModel(taskViewModel);
-    }
-
-    @Override
-    protected boolean isContainerListener() {
-        return getActivity() instanceof TaskListFragmentContainerListener;
     }
 
     public interface TaskListFragmentContainerListener {

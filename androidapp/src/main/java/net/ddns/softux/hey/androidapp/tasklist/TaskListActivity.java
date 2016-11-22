@@ -13,6 +13,7 @@ import net.ddns.softux.hey.androidapp.BaseActivity;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.androidapp.tasklist.di.TaskListActivityModule;
+import net.ddns.softux.hey.androidapp.tasklist.di.TaskListComponent;
 
 import javax.inject.Inject;
 
@@ -55,7 +56,11 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
     }
 
     private void inject(TaskListActivity activity) {
-        (((AndroidApp) getApplication()).getAndroidAppComponent().add(new TaskListActivityModule(activity))).inject(activity);
+        getTaskListActivityModule().inject(activity);
+    }
+
+    public TaskListComponent getTaskListActivityModule() {
+        return ((AndroidApp) getApplication()).getAndroidAppComponent().add(new TaskListActivityModule(this));
     }
 
     @Override
