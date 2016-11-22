@@ -102,6 +102,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView title;
         public final CheckBox checkbox;
+        public TaskListItemListener listener;
 
         public ViewHolder(View itemView, TaskListItemListener listener) {
             super(itemView);
@@ -111,13 +112,19 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
             itemView.setOnLongClickListener(listener.getOnLongClickListener());
             checkbox.setOnCheckedChangeListener(listener.getOnCheckChangeListener());
+
+            this.listener = listener;
         }
 
         public void bind(TaskViewModel taskViewModel) {
+            checkbox.setOnCheckedChangeListener(null);
+
             itemView.setTag(taskViewModel);
 
             title.setText(taskViewModel.title);
             checkbox.setChecked(taskViewModel.checked);
+
+            checkbox.setOnCheckedChangeListener(listener.getOnCheckChangeListener());
         }
 
         public interface TaskListItemListener {

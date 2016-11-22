@@ -5,7 +5,7 @@ import android.os.Parcel;
 
 import net.ddns.softux.hey.BuildConfig;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
-import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.data.Task;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

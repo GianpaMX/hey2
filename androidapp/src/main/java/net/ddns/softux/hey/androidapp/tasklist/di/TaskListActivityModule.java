@@ -3,6 +3,8 @@ package net.ddns.softux.hey.androidapp.tasklist.di;
 import net.ddns.softux.hey.androidapp.di.ActivityScope;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListActivity;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListPresenter;
+import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
+import net.ddns.softux.hey.todoapp.tasklist.TaskListUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,8 +25,8 @@ public class TaskListActivityModule {
 
     @Provides
     @ActivityScope
-    public TaskListPresenter provideTaskListPresenter() {
-        return new TaskListPresenter();
+    public TaskListPresenter provideTaskListPresenter(TaskListUseCase taskListUseCase, SaveTaskUseCase saveTaskUseCase) {
+        return new TaskListPresenter(taskListUseCase, saveTaskUseCase);
     }
 
 }

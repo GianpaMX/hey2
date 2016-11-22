@@ -1,6 +1,7 @@
 package net.ddns.softux.hey.androidapp.addedittask;
 
 import net.ddns.softux.hey.androidapp.di.ActivityScope;
+import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,7 +22,7 @@ public class AddEditTaskActivityModule {
 
     @Provides
     @ActivityScope
-    public AddEditTaskPresenter provideAddEditTaskPresenter() {
-        return new AddEditTaskPresenter();
+    public AddEditTaskPresenter provideAddEditTaskPresenter(SaveTaskUseCase saveTaskUseCase) {
+        return new AddEditTaskPresenter(saveTaskUseCase);
     }
 }

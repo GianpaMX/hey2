@@ -3,34 +3,36 @@ package net.ddns.softux.hey.tests.androidapp.addedittask;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskView;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
-import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.data.Task;
+import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class AddEditTaskPresenterTest {
-    @Test
-    public void onSavedTask() throws Exception {
-        AddEditTaskView mockAddEditTaskView = mock(AddEditTaskView.class);
 
-        AddEditTaskPresenter addEditTaskPresenter = new AddEditTaskPresenter(mockAddEditTaskView);
-        addEditTaskPresenter.onSavedTask(new Task());
+    private SaveTaskUseCase saveTaskUseCase;
+    private AddEditTaskPresenter addEditTaskPresenter;
+    private AddEditTaskView view;
 
-        verify(mockAddEditTaskView).setTaskViewModel(any(TaskViewModel.class));
-        verify(mockAddEditTaskView).showSuccess();
+    @Before
+    public void setUp() {
+        saveTaskUseCase = mock(SaveTaskUseCase.class);
+        view = mock(AddEditTaskView.class);
+
+        addEditTaskPresenter = new AddEditTaskPresenter(saveTaskUseCase);
+        addEditTaskPresenter.setView(view);
     }
 
     @Test
-    public void viewGetterAndSetter() {
-        AddEditTaskView mockAddEditTaskView = mock(AddEditTaskView.class);
-        AddEditTaskPresenter addEditTaskPresenter = new AddEditTaskPresenter();
+    public void onSavedTask() throws Exception {
+        addEditTaskPresenter.onSuccess(new Task());
 
-        addEditTaskPresenter.setView(mockAddEditTaskView);
-
-        assertEquals(mockAddEditTaskView, addEditTaskPresenter.getView());
+        verify(view).setTaskViewModel(any(TaskViewModel.class));
+        verify(view).showSuccess();
     }
 }

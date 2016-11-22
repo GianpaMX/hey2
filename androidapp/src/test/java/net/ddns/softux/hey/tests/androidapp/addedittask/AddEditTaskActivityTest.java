@@ -11,7 +11,7 @@ import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.tests.androidapp.ActivityTest;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
-import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.data.Task;
 
 import org.junit.Test;
 import org.mockito.Mock;

@@ -1,46 +1,43 @@
 package net.ddns.softux.hey.todoapp.savetask;
 
-import net.ddns.softux.hey.todoapp.task.Task;
-import net.ddns.softux.hey.todoapp.task.TaskEntitity;
+import net.ddns.softux.hey.todoapp.data.Task;
+import net.ddns.softux.hey.todoapp.data.TaskRepository;
 
 public class SaveTaskInteractor implements SaveTaskUseCase {
-    protected SaveTaskGateway saveTaskGateway;
+    protected TaskRepository taskRepository;
 
-    public SaveTaskInteractor(SaveTaskGateway saveTaskGateway) {
-        this.saveTaskGateway = saveTaskGateway;
+    public SaveTaskInteractor(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
     @Override
-    public void save(Task task, final OnSaveTaskListener onSaveTaskListener) {
-        saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
-            @Override
-            public void onSuccess(TaskEntitity savedTask) {
-                onSaveTaskListener.onSavedTask(savedTask.toModel());
-            }
-        });
+    public void save(Task task, final Callback callback) {
+        taskRepository.persist(task, createRepositoryCallback(callback));
     }
 
     @Override
-    public void check(final Task task, final OnSaveTaskListener onSaveTaskListener) {
+    public void check(final Task task, final Callback callback) {
         task.checked = true;
-        saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
-            @Override
-            public void onSuccess(TaskEntitity savedTask) {
-                if (onSaveTaskListener != null)
-                    onSaveTaskListener.onSavedTask(savedTask.toModel());
-            }
-        });
+        taskRepository.persist(task, createRepositoryCallback(callback));
     }
 
     @Override
-    public void uncheck(Task task, final OnSaveTaskListener onSaveTaskListener) {
+    public void uncheck(Task task, final Callback callback) {
         task.checked = false;
-        saveTaskGateway.save(task, new SaveTaskGatewayCallback() {
+        taskRepository.persist(task, createRepositoryCallback(callback));
+    }
+
+    private TaskRepository.Callback<Task> createRepositoryCallback(final Callback callback) {
+        return new TaskRepository.Callback<Task>() {
             @Override
-            public void onSuccess(TaskEntitity savedTask) {
-                if (onSaveTaskListener != null)
-                    onSaveTaskListener.onSavedTask(savedTask.toModel());
+            public void onSuccess(Task result) {
+                if (callback != null) callback.onSuccess(result);
             }
-        });
+
+            @Override
+            public void onFailure(Throwable error) {
+                if (callback != null) callback.onFailure(error);
+            }
+        };
     }
 }

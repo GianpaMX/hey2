@@ -11,9 +11,8 @@ import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.androidapp.tasklist.TaskListActivity;
 import net.ddns.softux.hey.tests.androidapp.HeyDaggerMockRule;
-import net.ddns.softux.hey.todoapp.savetask.OnSaveTaskListener;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
-import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.data.Task;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -74,13 +73,13 @@ public class TaskListActivityTest {
     public void onCheckedTask() {
         taskListActivity.onCheckedTask(mock(TaskViewModel.class));
 
-        verify(saveTaskUseCase).check(any(Task.class), any(OnSaveTaskListener.class));
+        verify(saveTaskUseCase).check(any(Task.class), any(SaveTaskUseCase.Callback.class));
     }
 
     @Test
     public void onUncheckedTask() {
         taskListActivity.onUncheckedTask(mock(TaskViewModel.class));
 
-        verify(saveTaskUseCase).uncheck(any(Task.class), any(OnSaveTaskListener.class));
+        verify(saveTaskUseCase).uncheck(any(Task.class), any(SaveTaskUseCase.Callback.class));
     }
 }

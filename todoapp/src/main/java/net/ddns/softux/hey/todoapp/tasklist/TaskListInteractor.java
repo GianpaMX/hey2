@@ -1,53 +1,53 @@
 package net.ddns.softux.hey.todoapp.tasklist;
 
-import net.ddns.softux.hey.todoapp.task.Task;
-import net.ddns.softux.hey.todoapp.task.TaskEntitity;
+import net.ddns.softux.hey.todoapp.data.Task;
+import net.ddns.softux.hey.todoapp.data.TaskRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-public class TaskListInteractor implements TaskListUseCase, TaskListGateway.OnTaskListGatewayListener {
-    protected TaskListGateway taskListGateway;
-    private OnTaskListLoadListener onTaskListLoadListener;
+public class TaskListInteractor implements TaskListUseCase, TaskRepository.Observer {
+    protected TaskRepository taskRepository;
+    protected Collection<Task> tasks;
+    private Observer observer;
 
-    public TaskListInteractor(TaskListGateway taskListGateway) {
-        this.taskListGateway = taskListGateway;
+    public TaskListInteractor(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+        this.taskRepository.setObserver(this);
     }
 
     @Override
-    public void start(OnTaskListLoadListener onTaskListLoadListener) {
-        this.onTaskListLoadListener = onTaskListLoadListener;
-        taskListGateway.setOnTaskListGatewayListener(this);
-        taskListGateway.loadTaskList();
-    }
-
-    @Override
-    public void onTaskListLoad(Collection<TaskEntitity> taskEntitities, TaskListGateway taskListGateway) {
-        List<Task> taskList = new ArrayList<>();
-        for (TaskEntitity entitity : taskEntitities) {
-            taskList.add(entitity.toModel());
+    public void start(final Observer observer) {
+        this.observer = observer;
+        if (tasks != null) {
+            observer.onTaskListChanged(tasks);
         }
-        onTaskListLoadListener.onTaskListLoad(taskList);
+
+        taskRepository.findAll(new TaskRepository.Callback<Collection<Task>>() {
+            @Override
+            public void onSuccess(Collection<Task> result) {
+                tasks = result;
+
+                if (observer != null) {
+                    observer.onTaskListChanged(result);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable error) {
+
+            }
+        });
     }
 
     @Override
-    public void onTaskListSaved(TaskListGateway taskListGateway) {
-
+    public void stop() {
+        this.observer = null;
     }
 
     @Override
-    public void onTaskAdded(TaskEntitity taskEntitity, TaskListGateway taskListGateway) {
-        onTaskListLoadListener.onTaskAdded(taskEntitity.toModel());
-    }
+    public void onTaskListChanged(Collection<Task> tasks) {
+        if (observer == null) return;
 
-    @Override
-    public void onTaskListSaveError(Exception e, TaskListGateway taskListGateway) {
-
-    }
-
-    @Override
-    public void onTaskListLoadError(Exception e, TaskListGateway taskListGateway) {
-
+        observer.onTaskListChanged(tasks);
     }
 }

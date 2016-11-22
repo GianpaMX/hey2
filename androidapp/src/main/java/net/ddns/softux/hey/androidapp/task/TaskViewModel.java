@@ -3,7 +3,7 @@ package net.ddns.softux.hey.androidapp.task;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.data.Task;
 
 public class TaskViewModel implements Parcelable {
     public static final Creator<TaskViewModel> CREATOR = new Creator<TaskViewModel>() {
@@ -30,18 +30,21 @@ public class TaskViewModel implements Parcelable {
         this.key = key;
         this.title = title;
         this.description = description;
+        this.checked = false;
     }
 
     protected TaskViewModel(Parcel in) {
         key = in.readString();
         title = in.readString();
         description = in.readString();
+        checked = in.readInt() == 1 ? true : false;
     }
 
     public TaskViewModel(Task task) {
         this.key = task.key;
         this.title = task.title;
         this.description = task.description;
+        this.checked = task.checked;
     }
 
     @Override
@@ -54,6 +57,7 @@ public class TaskViewModel implements Parcelable {
         dest.writeString(key);
         dest.writeString(title);
         dest.writeString(description);
+        dest.writeInt(checked ? 1 : 0);
     }
 
     @Override
@@ -71,10 +75,16 @@ public class TaskViewModel implements Parcelable {
         int result = key != null ? key.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (checked ? 1 : 0);
         return result;
     }
 
     public Task toTask() {
-        return new Task(key, title, description);
+        return Task.Builder()
+                .key(key)
+                .title(title)
+                .description(description)
+                .checked(checked)
+                .build();
     }
 }

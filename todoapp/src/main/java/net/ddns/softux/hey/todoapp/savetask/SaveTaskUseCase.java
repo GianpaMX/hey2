@@ -1,11 +1,17 @@
 package net.ddns.softux.hey.todoapp.savetask;
 
-import net.ddns.softux.hey.todoapp.task.Task;
+import net.ddns.softux.hey.todoapp.data.Task;
 
 public interface SaveTaskUseCase {
-    void save(Task task, OnSaveTaskListener onSaveTaskListener);
+    void save(Task task, Callback callback);
 
-    void check(Task task, OnSaveTaskListener onSaveTaskListener);
+    void check(Task task, Callback callback);
 
-    void uncheck(Task task, OnSaveTaskListener onSaveTaskListener);
+    void uncheck(Task task, Callback callback);
+
+    interface Callback {
+        void onSuccess(Task task);
+
+        void onFailure(Throwable error);
+    }
 }

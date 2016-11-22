@@ -9,15 +9,12 @@ import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.AndroidApp;
 import net.ddns.softux.hey.androidapp.BaseActivity;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
-import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
 
 import javax.inject.Inject;
 
 public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFragment.AddEditTaskFragmentContainerListener {
 
     public static final String TASK_VIEW_MODEL = "TASK_VIEW_MODEL";
-    @Inject
-    public SaveTaskUseCase saveTaskUseCase;
 
     @Inject
     public AddEditTaskPresenter addEditTaskPresenter;
@@ -27,7 +24,7 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_task_activity);
 
-        getAddEditTaskActivityModule().inject(this);
+        inject(this);
 
         setupToolbar();
 
@@ -37,6 +34,10 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
             getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, addEditTaskFragment).commit();
         }
         addEditTaskPresenter.setView(addEditTaskFragment);
+    }
+
+    private void inject(AddEditTaskActivity activity) {
+        ((AndroidApp) getApplication()).getAndroidAppComponent().add(new AddEditTaskActivityModule(activity)).inject(activity);
     }
 
     private AddEditTaskFragment newAddEditTaskFragmentInstance() {
@@ -49,10 +50,6 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
         return addEditTaskFragment;
     }
 
-    protected AddEditTaskComponent getAddEditTaskActivityModule() {
-        return ((AndroidApp) getApplication()).getAndroidAppComponent().add(new AddEditTaskActivityModule(this));
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_edit_task_activity_menu, menu);
@@ -63,7 +60,7 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                saveTaskUseCase.save(getTaskViewModel().toTask(), addEditTaskPresenter);
+                addEditTaskPresenter.save(getTaskViewModel());
                 return true;
         }
 
