@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface TaskListView {
     void loadTaskList(List<TaskViewModel> taskViewModelList);
-
-    void addTask(TaskViewModel taskViewModel);
 }

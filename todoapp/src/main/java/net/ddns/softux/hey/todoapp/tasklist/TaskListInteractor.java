@@ -46,8 +46,8 @@ public class TaskListInteractor implements TaskListUseCase, TaskRepository.Obser
 
     @Override
     public void onTaskListChanged(Collection<Task> tasks) {
-        if (observer == null) return;
+        this.tasks = tasks;
 
-        observer.onTaskListChanged(tasks);
+        if (observer != null) observer.onTaskListChanged(tasks);
     }
 }

@@ -10,8 +10,6 @@ import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskActivity;
 import net.ddns.softux.hey.androidapp.addedittask.AddEditTaskPresenter;
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.tests.androidapp.ActivityTest;
-import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
-import net.ddns.softux.hey.todoapp.data.Task;
 
 import org.junit.Test;
 import org.mockito.Mock;
@@ -29,9 +27,6 @@ import static org.mockito.Mockito.when;
 
 public class AddEditTaskActivityTest extends ActivityTest {
     @Mock
-    public SaveTaskUseCase saveTaskUseCase;
-
-    @Mock
     public AddEditTaskPresenter addEditTaskPresenter;
 
     @Test
@@ -42,7 +37,7 @@ public class AddEditTaskActivityTest extends ActivityTest {
         AddEditTaskActivity addEditTaskActivity = Robolectric.setupActivity(AddEditTaskActivity.class);
         addEditTaskActivity.onOptionsItemSelected(mockSaveMenuItem);
 
-        verify(saveTaskUseCase).save(any(Task.class), any(AddEditTaskPresenter.class));
+        verify(addEditTaskPresenter).save(any(TaskViewModel.class));
     }
 
     @Test
