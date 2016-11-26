@@ -45,8 +45,8 @@ public class TaskViewModel implements Parcelable {
 
     public TaskViewModel(Task task) {
         this.key = task.key;
-        this.title = task.title;
-        this.description = task.description;
+        this.title = task.title != null ? task.title.trim() : null;
+        this.description = task.description != null ? task.description.trim() : null;
         this.checked = task.checked;
         this.status = task.status;
     }
@@ -88,8 +88,8 @@ public class TaskViewModel implements Parcelable {
     public Task toTask() {
         return Task.Builder()
                 .key(key)
-                .title(title)
-                .description(description)
+                .title(title != null ? title.trim() : null)
+                .description(description != null ? description.trim() : null)
                 .checked(checked)
                 .status(status)
                 .build();
