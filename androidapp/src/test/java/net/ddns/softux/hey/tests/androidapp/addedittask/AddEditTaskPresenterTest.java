@@ -29,10 +29,9 @@ public class AddEditTaskPresenterTest {
     }
 
     @Test
-    public void onSavedTask() throws Exception {
-        addEditTaskPresenter.onSuccess(new Task());
+    public void save() {
+        addEditTaskPresenter.save(new TaskViewModel());
 
-        verify(view).setTaskViewModel(any(TaskViewModel.class));
-        verify(view).showSuccess();
+        verify(saveTaskUseCase).save(any(Task.class), any(SaveTaskUseCase.Callback.class));
     }
 }
