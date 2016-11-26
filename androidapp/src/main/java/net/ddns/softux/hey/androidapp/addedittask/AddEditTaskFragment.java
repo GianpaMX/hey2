@@ -85,6 +85,13 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
     }
 
     @Override
+    public void taskRemoved(TaskViewModel taskViewModel) {
+        if(containerListener != null) {
+            containerListener.onTaskRemoved(taskViewModel);
+        }
+    }
+
+    @Override
     public void showSuccess() {
         if(containerListener != null) {
             containerListener.onTaskSavedSuccessfully(taskViewModel);
@@ -93,5 +100,7 @@ public class AddEditTaskFragment extends Fragment implements AddEditTaskView {
 
     public interface AddEditTaskFragmentContainerListener {
         void onTaskSavedSuccessfully(TaskViewModel taskViewModel);
+
+        void onTaskRemoved(TaskViewModel taskViewModel);
     }
 }

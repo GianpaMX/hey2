@@ -9,6 +9,8 @@ public interface SaveTaskUseCase {
 
     void uncheck(Task task, Callback callback);
 
+    void remove(Task task, Callback callback);
+
     interface Callback {
         void onSuccess(Task task);
 

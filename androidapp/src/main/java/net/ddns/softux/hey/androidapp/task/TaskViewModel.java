@@ -21,6 +21,7 @@ public class TaskViewModel implements Parcelable {
     public String title;
     public String description;
     public boolean checked;
+    public int status;
 
     public TaskViewModel() {
         this(null, null, null);
@@ -31,6 +32,7 @@ public class TaskViewModel implements Parcelable {
         this.title = title;
         this.description = description;
         this.checked = false;
+        this.status = Task.ACTIVE;
     }
 
     protected TaskViewModel(Parcel in) {
@@ -38,6 +40,7 @@ public class TaskViewModel implements Parcelable {
         title = in.readString();
         description = in.readString();
         checked = in.readInt() == 1 ? true : false;
+        status = in.readInt();
     }
 
     public TaskViewModel(Task task) {
@@ -45,6 +48,7 @@ public class TaskViewModel implements Parcelable {
         this.title = task.title;
         this.description = task.description;
         this.checked = task.checked;
+        this.status = task.status;
     }
 
     @Override
@@ -58,6 +62,7 @@ public class TaskViewModel implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeInt(checked ? 1 : 0);
+        dest.writeInt(status);
     }
 
     @Override
@@ -76,6 +81,7 @@ public class TaskViewModel implements Parcelable {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (checked ? 1 : 0);
+        result = 31 * result + (status);
         return result;
     }
 
@@ -85,6 +91,7 @@ public class TaskViewModel implements Parcelable {
                 .title(title)
                 .description(description)
                 .checked(checked)
+                .status(status)
                 .build();
     }
 }

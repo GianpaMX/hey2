@@ -27,6 +27,12 @@ public class SaveTaskInteractor implements SaveTaskUseCase {
         taskRepository.persist(task, createRepositoryCallback(callback));
     }
 
+    @Override
+    public void remove(Task task, Callback callback) {
+        task.status = Task.REMOVED;
+        taskRepository.persist(task, createRepositoryCallback(callback));
+    }
+
     private TaskRepository.Callback<Task> createRepositoryCallback(final Callback callback) {
         return new TaskRepository.Callback<Task>() {
             @Override

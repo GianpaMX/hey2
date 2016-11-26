@@ -1,10 +1,14 @@
 package net.ddns.softux.hey.todoapp.data;
 
 public class Task {
+    public static final int ACTIVE = 0;
+    public static final int REMOVED = 1;
+
     public String key;
     public String title;
     public String description;
     public boolean checked;
+    public int status;
 
     public Task() {
         this(null, null, null);
@@ -15,6 +19,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.checked = false;
+        this.status = ACTIVE;
     }
 
     public static Builder Builder() {
@@ -45,6 +50,11 @@ public class Task {
 
         public Builder checked(boolean checked) {
             task.checked = checked;
+            return this;
+        }
+
+        public Builder status(int status) {
+            task.status = status;
             return this;
         }
 

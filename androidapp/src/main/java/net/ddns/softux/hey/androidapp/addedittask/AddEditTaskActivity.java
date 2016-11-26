@@ -1,9 +1,10 @@
 package net.ddns.softux.hey.androidapp.addedittask;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import net.ddns.softux.hey.R;
 import net.ddns.softux.hey.androidapp.AndroidApp;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFragment.AddEditTaskFragmentContainerListener {
 
     public static final String TASK_VIEW_MODEL = "TASK_VIEW_MODEL";
+    public static final int RESULT_REMOVED = 1;
 
     @Inject
     public AddEditTaskPresenter addEditTaskPresenter;
@@ -34,6 +36,9 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
             getSupportFragmentManager().beginTransaction().add(R.id.task_fragment, addEditTaskFragment).commit();
         }
         addEditTaskPresenter.setView(addEditTaskFragment);
+
+        // Default result
+        setResult(RESULT_CANCELED);
     }
 
     private void inject(AddEditTaskActivity activity) {
@@ -62,6 +67,8 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
             case R.id.save:
                 addEditTaskPresenter.save(getTaskViewModel());
                 return true;
+            case R.id.remove:
+                addEditTaskPresenter.remove(getTaskViewModel());
         }
 
         return super.onOptionsItemSelected(item);
@@ -77,7 +84,24 @@ public class AddEditTaskActivity extends BaseActivity implements AddEditTaskFrag
 
     @Override
     public void onTaskSavedSuccessfully(TaskViewModel taskViewModel) {
-        Toast.makeText(this, taskViewModel.key, Toast.LENGTH_LONG).show();
+        Intent data = getDataIntentFromTaskViewModel(taskViewModel);
+        setResult(RESULT_OK, data);
+
         finish();
+    }
+
+    @Override
+    public void onTaskRemoved(TaskViewModel taskViewModel) {
+        Intent data = getDataIntentFromTaskViewModel(taskViewModel);
+        setResult(RESULT_REMOVED, data);
+
+        finish();
+    }
+
+    @NonNull
+    private Intent getDataIntentFromTaskViewModel(TaskViewModel taskViewModel) {
+        Intent data = new Intent();
+        data.putExtra(TASK_VIEW_MODEL, taskViewModel);
+        return data;
     }
 }

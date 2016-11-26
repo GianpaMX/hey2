@@ -3,11 +3,12 @@ package net.ddns.softux.hey.todoapp.tasklist;
 import net.ddns.softux.hey.todoapp.data.Task;
 import net.ddns.softux.hey.todoapp.data.TaskRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class TaskListInteractor implements TaskListUseCase, TaskRepository.Observer {
     protected TaskRepository taskRepository;
-    protected Collection<Task> tasks;
+    protected Collection<Task> activeTasks;
     private Observer observer;
 
     public TaskListInteractor(TaskRepository taskRepository) {
@@ -18,18 +19,14 @@ public class TaskListInteractor implements TaskListUseCase, TaskRepository.Obser
     @Override
     public void start(final Observer observer) {
         this.observer = observer;
-        if (tasks != null) {
-            observer.onTaskListChanged(tasks);
+        if (activeTasks != null) {
+            observer.onTaskListChanged(activeTasks);
         }
 
         taskRepository.findAll(new TaskRepository.Callback<Collection<Task>>() {
             @Override
             public void onSuccess(Collection<Task> result) {
-                tasks = result;
-
-                if (observer != null) {
-                    observer.onTaskListChanged(result);
-                }
+                onTaskListChanged(result);
             }
 
             @Override
@@ -46,8 +43,16 @@ public class TaskListInteractor implements TaskListUseCase, TaskRepository.Obser
 
     @Override
     public void onTaskListChanged(Collection<Task> tasks) {
-        this.tasks = tasks;
+        if (this.activeTasks == null) {
+            this.activeTasks = new ArrayList<>();
+        } else {
+            this.activeTasks.clear();
+        }
 
-        if (observer != null) observer.onTaskListChanged(tasks);
+        for (Task task : tasks) {
+            if (task.status != Task.REMOVED) this.activeTasks.add(task);
+        }
+
+        if (observer != null) observer.onTaskListChanged(this.activeTasks);
     }
 }

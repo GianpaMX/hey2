@@ -6,4 +6,6 @@ public interface AddEditTaskView {
     void showSuccess();
 
     void setTaskViewModel(TaskViewModel taskViewModel);
+
+    void taskRemoved(TaskViewModel taskViewModel);
 }

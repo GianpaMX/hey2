@@ -13,6 +13,7 @@ public class TaskRealmObject extends RealmObject {
     public String title;
     public String description;
     public boolean checked;
+    public int status;
 
     public TaskRealmObject() {
     }
@@ -22,6 +23,7 @@ public class TaskRealmObject extends RealmObject {
         title = task.title;
         description = task.description;
         checked = task.checked;
+        status = task.status;
     }
 
     public Task toModel() {
@@ -30,6 +32,7 @@ public class TaskRealmObject extends RealmObject {
                 .title(title)
                 .description(description)
                 .checked(checked)
+                .status(status)
                 .build();
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -18,6 +19,8 @@ import net.ddns.softux.hey.androidapp.tasklist.di.TaskListComponent;
 import javax.inject.Inject;
 
 public class TaskListActivity extends BaseActivity implements TaskListFragment.TaskListFragmentContainerListener {
+
+    private static final int EDIT_REQUEST_CODE = 1;
 
     @Inject
     public TaskListPresenter taskListPresenter;
@@ -79,7 +82,7 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
     public boolean onLongClickTask(TaskViewModel taskViewModel) {
         Intent intent = new Intent(this, AddEditTaskActivity.class);
         intent.putExtra(AddEditTaskActivity.TASK_VIEW_MODEL, taskViewModel);
-        startActivity(intent);
+        startActivityForResult(intent, EDIT_REQUEST_CODE);
 
         return true;
     }
@@ -92,5 +95,14 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
     @Override
     public void onUncheckedTask(TaskViewModel taskViewModel) {
         taskListPresenter.uncheck(taskViewModel);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == EDIT_REQUEST_CODE && resultCode == AddEditTaskActivity.RESULT_REMOVED) {
+            Snackbar.make(findViewById(R.id.task_list_activity), "Task removed", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
