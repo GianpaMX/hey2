@@ -2,6 +2,7 @@ package net.ddns.softux.hey.androidapp.di;
 
 import android.content.Context;
 
+import net.ddns.softux.hey.androidapp.data.TaskRealmRepository;
 import net.ddns.softux.hey.todoapp.data.Task;
 import net.ddns.softux.hey.todoapp.data.TaskMemoryRepository;
 import net.ddns.softux.hey.todoapp.data.TaskRepository;
@@ -17,6 +18,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 @Module
 public class AndroidAppModule {
@@ -34,9 +36,17 @@ public class AndroidAppModule {
 
     @Singleton
     @Provides
-    public TaskRepository provideTaskRepository() {
+    public Realm provideRealm() {
+        Realm.init(context);
+
+        return Realm.getDefaultInstance();
+    }
+
+    @Singleton
+    @Provides
+    public TaskRepository provideTaskRepository(Realm realm) {
         Map<String, Task> tasks = new Hashtable<>();
-        return new TaskMemoryRepository(tasks, 0);
+        return new TaskRealmRepository(realm);
     }
 
     @Provides
