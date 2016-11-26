@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/save"
-        android:title="@string/add_edit_task_activity_menu_save_text"
+        android:title="@string/add_edit_task_activity_menu_save"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/remove"
-        android:title="Remove"
+        android:title="@string/add_edit_task_activity_menu_remove"
         app:showAsAction="never" />
 </menu>

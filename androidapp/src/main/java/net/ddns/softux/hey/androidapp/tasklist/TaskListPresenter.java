@@ -1,5 +1,7 @@
 package net.ddns.softux.hey.androidapp.tasklist;
 
+import android.os.Parcelable;
+
 import net.ddns.softux.hey.androidapp.task.TaskViewModel;
 import net.ddns.softux.hey.todoapp.data.Task;
 import net.ddns.softux.hey.todoapp.savetask.SaveTaskUseCase;
@@ -39,5 +41,9 @@ public class TaskListPresenter implements TaskListUseCase.Observer {
 
     public void uncheck(TaskViewModel taskViewModel) {
         saveTaskUseCase.uncheck(taskViewModel.toTask(), null);
+    }
+
+    public void restore(TaskViewModel taskViewModel) {
+        saveTaskUseCase.restore(taskViewModel.toTask(), null);
     }
 }

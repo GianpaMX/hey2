@@ -11,6 +11,8 @@ public interface SaveTaskUseCase {
 
     void remove(Task task, Callback callback);
 
+    void restore(Task task, Callback callback);
+
     interface Callback {
         void onSuccess(Task task);
 

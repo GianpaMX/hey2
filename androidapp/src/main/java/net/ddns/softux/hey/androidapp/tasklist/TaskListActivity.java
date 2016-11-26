@@ -98,9 +98,17 @@ public class TaskListActivity extends BaseActivity implements TaskListFragment.T
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == EDIT_REQUEST_CODE && resultCode == AddEditTaskActivity.RESULT_REMOVED) {
-            Snackbar.make(findViewById(R.id.task_list_activity), "Task removed", Snackbar.LENGTH_LONG).show();
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        if (requestCode == EDIT_REQUEST_CODE && resultCode == AddEditTaskActivity.RESULT_REMOVED) {
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.task_list_activity), R.string.task_list_activity_task_removed_message, Snackbar.LENGTH_LONG);
+            snackbar.setAction(R.string.task_list_activity_task_removed_undo, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    taskListPresenter.restore((TaskViewModel) data.getParcelableExtra(AddEditTaskActivity.TASK_VIEW_MODEL));
+                }
+            });
+            snackbar.show();
+
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
